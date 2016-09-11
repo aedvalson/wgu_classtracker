@@ -8,9 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-/**
- * Created by a_edv on 9/11/2016.
+/*
+*
+* Andrew Edvalson - C198 Mobile Application Development
+*
+* https://github.com/aedvalson/wgu_classtracker
+*
  */
+
 public class DataProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.aedvalson.classtracker.dataprovider";
@@ -64,6 +69,7 @@ public class DataProvider extends ContentProvider {
     public String getType(Uri uri) {
         return null;
     }
+
 
     @Nullable
     @Override

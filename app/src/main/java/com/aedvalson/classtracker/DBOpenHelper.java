@@ -5,9 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-/**
- * Created by a_edv on 9/10/2016.
- */
+    /*
+    *
+    * Andrew Edvalson - C198 Mobile Application Development
+    *
+    * https://github.com/aedvalson/wgu_classtracker
+    *
+     */
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 

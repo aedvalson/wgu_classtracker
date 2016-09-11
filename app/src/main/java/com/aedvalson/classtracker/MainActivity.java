@@ -1,24 +1,36 @@
 package com.aedvalson.classtracker;
 
-import android.content.ContentProvider;
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    /*
+    *
+    * Andrew Edvalson - C198 Mobile Application Development
+    *
+    * https://github.com/aedvalson/wgu_classtracker
+    *
+     */
+
+    private CursorAdapter ca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +56,15 @@ public class MainActivity extends AppCompatActivity {
         Uri termUri = getContentResolver().insert(DataProvider.TERM_URI, values);
         Log.d("MainActivity", "Inserted Term: " + termUri.getLastPathSegment());
 
-        Cursor cursor = getContentResolver().query(DataProvider.TERM_URI, DBOpenHelper.TERM_COLUMNS, null, null, null, null);
         String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START };
         int[] to = { android.R.id.text1, android.R.id.text2 };
-        CursorAdapter ca = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor, from, to, 0);
+
+        ca = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, null, from, to, 0);
 
         ListView list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(ca);
+
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -74,4 +88,21 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, DataProvider.TERM_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        ca.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        ca.swapCursor(null);
+    }
+
 }
