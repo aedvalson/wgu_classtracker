@@ -9,13 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class TermEditorActivity extends AppCompatActivity {
 
+    private static final int MAIN_ACTIVITY_CODE = 1;
     private String action;
     private EditText termNameField;
     private EditText termStartDateField;
     private EditText termEndDateField;
+
+    private DataProvider db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,8 @@ public class TermEditorActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        db = new DataProvider();
 
         termNameField = (EditText) findViewById(R.id.termNameEditText);
         termStartDateField = (EditText) findViewById(R.id.termStartDateEditText);
@@ -39,4 +45,21 @@ public class TermEditorActivity extends AppCompatActivity {
         }
     }
 
+    public void saveTermChanges(View view) {
+        if (action == Intent.ACTION_INSERT) {
+            DataManager.insertTerm(this,
+                    termNameField.getText().toString(),
+                    termStartDateField.getText().toString(),
+                    termEndDateField.getText().toString()
+            );
+
+            // Notify that delete was completed
+            Toast.makeText(this,
+                    getString(R.string.term_saved),
+                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivityForResult(intent, MAIN_ACTIVITY_CODE);
+        }
+    }
 }

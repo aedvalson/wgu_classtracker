@@ -4,6 +4,7 @@
     <string name="delete_all_terms">Delete All Terms</string>
     <string name="are_you_sure">This will delete all terms! Are you sure you wish to continue?</string>
     <string name="all_deleted">All terms deleted.</string>
+    <string name="term_saved">Term was saved successfully.</string>
     <string name="app_name">ClassTracker</string>
     <string name="title_activity_term_editor">TermEditorActivity</string>
     <string name="term_name">Term Name</string>

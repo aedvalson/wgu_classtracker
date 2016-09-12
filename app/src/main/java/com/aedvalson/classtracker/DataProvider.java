@@ -52,8 +52,6 @@ public class DataProvider extends ContentProvider {
         return true;
     }
 
-
-
     @Nullable
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         switch (uriMatcher.match(uri)) {
@@ -68,20 +66,14 @@ public class DataProvider extends ContentProvider {
     }
 
 
+
+
     @Nullable
     @Override
     public String getType(Uri uri) {
         return null;
     }
 
-
-    public Uri insertTerm(String termName, String termStart, String termEnd) {
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.TERM_NAME, termName);
-        values.put(DBOpenHelper.TERM_START, termStart);
-        values.put(DBOpenHelper.TERM_END, termEnd);
-        return insert(DataProvider.TERM_URI, values);
-    }
 
     @Nullable
     @Override

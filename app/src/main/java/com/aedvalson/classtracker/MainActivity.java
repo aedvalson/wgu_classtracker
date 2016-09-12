@@ -36,6 +36,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
 
     private CursorAdapter ca;
+    private DataProvider db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +49,12 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         int[] to = { R.id.tvTerm, R.id.text2 };
 
         ca = new SimpleCursorAdapter(this, R.layout.term_list_item, null, from, to, 0);
+        db = new DataProvider();
 
         ListView list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(ca);
 
         getLoaderManager().initLoader(0, null, this);
-    }
-
-    private void insertTerm(String termName, String termStart, String termEnd) {
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.TERM_NAME, termName);
-        values.put(DBOpenHelper.TERM_START, termStart);
-        values.put(DBOpenHelper.TERM_END, termEnd);
-
-        Uri termUri = getContentResolver().insert(DataProvider.TERM_URI, values);
-        Log.d("MainActivity", "Inserted Term: " + termUri.getLastPathSegment());
     }
 
     @Override
@@ -116,12 +108,12 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private boolean createSampleData() {
-        insertTerm("Spring 2016", "2016-01-01", "2016-06-30");
-        insertTerm("Fall 2016", "2016-07-01", "2016-12-31");
-        insertTerm("Spring 2017", "2017-01-01", "2017-06-30");
-        insertTerm("Fall 2017", "2017-07-01", "2017-12-31");
-        insertTerm("Spring 2018", "2018-01-01", "2018-06-30");
-        insertTerm("Fall 2018", "2018-07-01", "2018-12-31");
+        DataManager.insertTerm(this, "Spring 2016", "2016-01-01", "2016-06-30");
+        DataManager.insertTerm(this, "Fall 2016", "2016-07-01", "2016-12-31");
+        DataManager.insertTerm(this, "Spring 2017", "2017-01-01", "2017-06-30");
+        DataManager.insertTerm(this, "Fall 2017", "2017-07-01", "2017-12-31");
+        DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30");
+        DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31");
         restartLoader();
         return true;
     }
