@@ -3,12 +3,14 @@ package com.aedvalson.classtracker;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -48,14 +51,6 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
             }
         });
 
-        ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.TERM_NAME, "Term 1");
-        values.put(DBOpenHelper.TERM_START, "2016-01-01");
-        values.put(DBOpenHelper.TERM_END, "2016-01-31");
-
-        Uri termUri = getContentResolver().insert(DataProvider.TERM_URI, values);
-        Log.d("MainActivity", "Inserted Term: " + termUri.getLastPathSegment());
-
         String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START };
         int[] to = { android.R.id.text1, android.R.id.text2 };
 
@@ -67,6 +62,16 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         getLoaderManager().initLoader(0, null, this);
     }
 
+    private void insertTerm(String termName, String termStart, String termEnd) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.TERM_NAME, termName);
+        values.put(DBOpenHelper.TERM_START, termStart);
+        values.put(DBOpenHelper.TERM_END, termEnd);
+
+        Uri termUri = getContentResolver().insert(DataProvider.TERM_URI, values);
+        Log.d("MainActivity", "Inserted Term: " + termUri.getLastPathSegment());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -76,17 +81,57 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_create_sample:
+                return createSampleData();
+            case R.id.action_delete_all_terms:
+                return deleteAllTerms();
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private boolean deleteAllTerms() {
+        DialogInterface.OnClickListener dialogClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    // Confirm that user wishes to proceed
+                    public void onClick(DialogInterface dialog, int button) {
+                        if (button == DialogInterface.BUTTON_POSITIVE) {
+
+                            // Do the actual delete
+                            getContentResolver().delete(DataProvider.TERM_URI, null, null);
+                            restartLoader();
+
+                            // Notify that delete was completed
+                            Toast.makeText(MainActivity.this,
+                                    getString(R.string.all_deleted),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.are_you_sure))
+                .setPositiveButton(getString(android.R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(android.R.string.no), dialogClickListener)
+                .show();
+
+        return true;
+    }
+
+    private boolean createSampleData() {
+        insertTerm("Spring 2016", "2016-01-01", "2016-06-30");
+        insertTerm("Fall 2016", "2016-07-01", "2016-12-31");
+        insertTerm("Spring 2017", "2017-01-01", "2017-06-30");
+        restartLoader();
+        return true;
+    }
+
+    private void restartLoader() {
+        getLoaderManager().restartLoader(0, null, this);
     }
 
 

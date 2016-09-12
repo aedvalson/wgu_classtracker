@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /*
 *
@@ -54,9 +55,9 @@ public class DataProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         switch (uriMatcher.match(uri)) {
             case TERMS:
-                return db.query(DBOpenHelper.TABLE_TERMS, DBOpenHelper.TERM_COLUMNS, selection, null, null, null, DBOpenHelper.TERM_CREATED + " DESC");
+                return db.query(DBOpenHelper.TABLE_TERMS, DBOpenHelper.TERM_COLUMNS, selection, null, null, null, DBOpenHelper.TERM_TABLE_ID + " ASC");
             case CLASSES:
-                return db.query(DBOpenHelper.TABLE_CLASSES, DBOpenHelper.CLASS_COLUMNS, selection, null, null, null, DBOpenHelper.CLASS_CREATED + " DESC");
+                return db.query(DBOpenHelper.TABLE_CLASSES, DBOpenHelper.CLASS_COLUMNS, selection, null, null, null, DBOpenHelper.CLASS_TABLE_ID + " ASC");
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -71,6 +72,14 @@ public class DataProvider extends ContentProvider {
     }
 
 
+    public Uri insertTerm(String termName, String termStart, String termEnd) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.TERM_NAME, termName);
+        values.put(DBOpenHelper.TERM_START, termStart);
+        values.put(DBOpenHelper.TERM_END, termEnd);
+        return insert(DataProvider.TERM_URI, values);
+    }
+
     @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -78,9 +87,11 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 id = db.insert(DBOpenHelper.TABLE_TERMS, null, values);
+                Log.d("MainActivity", "Inserted Term: " + id);
                 return Uri.parse(TERM_PATH + "/" + id);
             case CLASSES:
                 id = db.insert(DBOpenHelper.TABLE_CLASSES, null, values);
+                Log.d("MainActivity", "Inserted Term: " + id);
                 return Uri.parse(CLASS_PATH + "/" + id);
             default:
                 throw new IllegalArgumentException(
