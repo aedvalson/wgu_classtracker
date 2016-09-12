@@ -39,6 +39,9 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, CLASS_PATH + "/#", CLASSES_ID);
     }
 
+    public static final String TERM_CONTENT_TYPE = "Term";
+    public static final String CLASS_CONTENT_TYPE = "Class";
+
     private SQLiteDatabase db;
     private String currentTable;
 

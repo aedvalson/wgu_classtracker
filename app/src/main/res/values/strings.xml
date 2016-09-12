@@ -5,4 +5,10 @@
     <string name="are_you_sure">This will delete all terms! Are you sure you wish to continue?</string>
     <string name="all_deleted">All terms deleted.</string>
     <string name="app_name">ClassTracker</string>
+    <string name="title_activity_term_editor">TermEditorActivity</string>
+    <string name="term_name">Term Name</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="save_term">Save Term</string>
+    <string name="add_new_term">Add New Term</string>
 </resources>

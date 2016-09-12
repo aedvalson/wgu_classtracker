@@ -4,12 +4,12 @@ import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +33,8 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     *
      */
 
+    public static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
+
     private CursorAdapter ca;
 
     @Override
@@ -41,15 +43,6 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START };
         int[] to = { R.id.tvTerm, R.id.text2 };
@@ -153,4 +146,8 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         ca.swapCursor(null);
     }
 
+    public void openNewTermEditor(View view) {
+        Intent intent = new Intent(this, TermEditorActivity.class);
+        startActivityForResult(intent, TERM_EDITOR_ACTIVITY_CODE);
+    }
 }
