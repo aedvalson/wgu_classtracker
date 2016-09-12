@@ -52,9 +52,9 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         });
 
         String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START };
-        int[] to = { android.R.id.text1, android.R.id.text2 };
+        int[] to = { R.id.tvTerm, R.id.text2 };
 
-        ca = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, null, from, to, 0);
+        ca = new SimpleCursorAdapter(this, R.layout.term_list_item, null, from, to, 0);
 
         ListView list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(ca);
@@ -126,6 +126,9 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         insertTerm("Spring 2016", "2016-01-01", "2016-06-30");
         insertTerm("Fall 2016", "2016-07-01", "2016-12-31");
         insertTerm("Spring 2017", "2017-01-01", "2017-06-30");
+        insertTerm("Fall 2017", "2017-07-01", "2017-12-31");
+        insertTerm("Spring 2018", "2018-01-01", "2018-06-30");
+        insertTerm("Fall 2018", "2018-07-01", "2018-12-31");
         restartLoader();
         return true;
     }
