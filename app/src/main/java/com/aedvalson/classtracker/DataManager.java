@@ -2,6 +2,7 @@ package com.aedvalson.classtracker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -19,5 +20,22 @@ public class DataManager {
         Log.d("MainActivity", "Inserted Term: " + termUri.getLastPathSegment());
 
         return termUri;
+    }
+
+    public static Term getTerm(Context context, long id) {
+        Cursor cursor = context.getContentResolver().query(DataProvider.TERM_URI, DBOpenHelper.TERM_COLUMNS, DBOpenHelper.TERM_TABLE_ID + "=" + id, null, null);
+
+        cursor.moveToFirst();
+        String termName = cursor.getString(cursor.getColumnIndex(DBOpenHelper.TERM_NAME));
+        String termStartDate = cursor.getString(cursor.getColumnIndex(DBOpenHelper.TERM_START));
+        String termEndDate = cursor.getString(cursor.getColumnIndex(DBOpenHelper.TERM_END));
+
+        Term t = new Term();
+        t.termId = id;
+        t.termName = termName;
+        t.termStartDate = termStartDate;
+        t.termEndDate = termEndDate;
+
+        return t;
     }
 }

@@ -22,6 +22,9 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
 
     private static final int MAIN_ACTIVITY_CODE = 1;
     private String action;
+    private String termFilter;
+    private Term term;
+
     private EditText termNameField;
     private EditText termStartDateField;
     private EditText termEndDateField;
@@ -59,11 +62,27 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
         if (uri == null) {
             action = Intent.ACTION_INSERT;
             setTitle(getString(R.string.add_new_term));
+        } else {
+            action = Intent.ACTION_EDIT;
+            setTitle("Edit Term");
+            long termId = Long.parseLong(uri.getLastPathSegment());
+            term = DataManager.getTerm(this, termId);
+            fillTermForm(term);
         }
 
         setupDatePickers();
+    }
 
+    private void fillTermForm(Term t) {
+        termNameField.setText(t.termName);
+        termStartDateField.setText(t.termStartDate);
+        termEndDateField.setText(t.termEndDate);
+    }
 
+    private void getTermFromForm() {
+        term.termName = termNameField.getText().toString().trim();
+        term.termStartDate = termStartDateField.getText().toString().trim();
+        term.termEndDate = termEndDateField.getText().toString().trim();
     }
 
     private void setupDatePickers() {
@@ -109,16 +128,13 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void saveTermChanges(View view) {
+        getTermFromForm();
+
         if (action == Intent.ACTION_INSERT) {
-
-            String newTermName = termNameField.getText().toString().trim();
-            String newTermStartDate = termStartDateField.getText().toString().trim();
-            String newTermEndDate = termEndDateField.getText().toString().trim();
-
             DataManager.insertTerm(this,
-                    newTermName,
-                    newTermStartDate,
-                    newTermEndDate
+                    term.termName,
+                    term.termStartDate,
+                    term.termEndDate
             );
 
             // Notify that delete was completed
@@ -126,10 +142,22 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
                     getString(R.string.term_saved),
                     Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivityForResult(intent, MAIN_ACTIVITY_CODE);
+            setResult(RESULT_OK);
+
+        } else if (action == Intent.ACTION_EDIT) {
+            term.saveChanges(this);
+            // Notify that update was completed
+            Toast.makeText(this,
+                    getString(R.string.term_updated),
+                    Toast.LENGTH_SHORT).show();
+
+            setResult(RESULT_OK);
         }
+
+        finish();
     }
+
+
 
     @Override
     public void onClick(View v) {

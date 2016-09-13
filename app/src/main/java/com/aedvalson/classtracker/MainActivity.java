@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -45,8 +46,8 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START };
-        int[] to = { R.id.tvTerm, R.id.text2 };
+        String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START, DBOpenHelper.TERM_END };
+        int[] to = { R.id.tvTerm, R.id.tvTermStartDate, R.id.tvTermEndDate };
 
         ca = new SimpleCursorAdapter(this, R.layout.term_list_item, null, from, to, 0);
         db = new DataProvider();
@@ -54,8 +55,27 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         ListView list = (ListView) findViewById(android.R.id.list);
         list.setAdapter(ca);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, TermEditorActivity.class);
+                Uri uri = Uri.parse(DataProvider.TERM_URI + "/" + id);
+                intent.putExtra(DataProvider.TERM_CONTENT_TYPE, uri);
+                startActivityForResult(intent, TERM_EDITOR_ACTIVITY_CODE);
+            }
+        });
+
         getLoaderManager().initLoader(0, null, this);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            restartLoader();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

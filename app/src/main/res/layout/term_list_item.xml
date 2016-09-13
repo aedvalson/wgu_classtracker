@@ -11,6 +11,7 @@
         android:layout_height="36dp"
         android:src="@drawable/ic_calendar_clock" />
 
+
     <TextView
         android:id="@+id/tvTerm"
         android:layout_width="wrap_content"
@@ -21,8 +22,54 @@
         android:layout_toEndOf="@+id/imageDocIcon"
         android:layout_toRightOf="@+id/imageDocIcon"
         android:singleLine="true"
-        android:text="Dummy Text"
+        android:text="Dummy Term Name"
         android:textColor="@color/list_item_text"
         android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvTerm"
+        android:layout_toRightOf="@+id/imageDocIcon"
+        android:layout_toEndOf="@+id/imageDocIcon">
+
+        <TextView
+            android:id="@+id/tvTermStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTerm"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_toRightOf="@+id/imageDocIcon"
+            android:text="StartDate" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTerm"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_toRightOf="@+id/imageDocIcon"
+            android:text=" - " />
+
+        <TextView
+            android:id="@+id/tvTermEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTerm"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_toRightOf="@+id/imageDocIcon"
+            android:text="Dummy Date Range" />
+
+    </LinearLayout>
 
 </RelativeLayout>
