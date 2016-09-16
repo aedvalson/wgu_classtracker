@@ -13,4 +13,7 @@
     <string name="save_term">Save Term</string>
     <string name="add_new_term">Add New Term</string>
     <string name="term_updated">Term was successfully updated.</string>
+    <string name="title_activity_term_viewer">TermViewerActivity</string>
+    <string name="edit_term">Edit Term</string>
+    <string name="delete_term">Delete Term</string>
 </resources>

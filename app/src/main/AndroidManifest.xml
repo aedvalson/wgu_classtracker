@@ -33,6 +33,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.aedvalson.classtracker.MainActivity" />
         </activity>
+        <activity
+            android:name=".TermViewerActivity"
+            android:label="@string/title_activity_term_viewer"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

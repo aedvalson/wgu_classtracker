@@ -41,7 +41,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_term_editor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         db = new DataProvider();
 
@@ -128,9 +128,10 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void saveTermChanges(View view) {
-        getTermFromForm();
-
         if (action == Intent.ACTION_INSERT) {
+            term = new Term();
+            getTermFromForm();
+
             DataManager.insertTerm(this,
                     term.termName,
                     term.termStartDate,
@@ -145,6 +146,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
             setResult(RESULT_OK);
 
         } else if (action == Intent.ACTION_EDIT) {
+            getTermFromForm();
             term.saveChanges(this);
             // Notify that update was completed
             Toast.makeText(this,

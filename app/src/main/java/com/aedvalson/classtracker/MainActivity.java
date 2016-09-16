@@ -35,6 +35,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
      */
 
     public static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
+    public static final int TERM_VIEWER_ACTIVITY_CODE = 22222;
 
     private CursorAdapter ca;
     private DataProvider db;
@@ -58,10 +59,10 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, TermEditorActivity.class);
+                Intent intent = new Intent(MainActivity.this, TermViewerActivity.class);
                 Uri uri = Uri.parse(DataProvider.TERM_URI + "/" + id);
                 intent.putExtra(DataProvider.TERM_CONTENT_TYPE, uri);
-                startActivityForResult(intent, TERM_EDITOR_ACTIVITY_CODE);
+                startActivityForResult(intent, TERM_VIEWER_ACTIVITY_CODE);
             }
         });
 
@@ -77,12 +78,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
