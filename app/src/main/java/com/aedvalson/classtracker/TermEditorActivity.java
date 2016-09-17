@@ -41,7 +41,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_term_editor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         db = new DataProvider();
 

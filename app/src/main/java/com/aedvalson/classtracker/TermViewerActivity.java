@@ -1,7 +1,11 @@
 package com.aedvalson.classtracker;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,12 +16,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-public class TermViewerActivity extends AppCompatActivity {
+public class TermViewerActivity extends AppCompatActivity
+implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
     private Term term;
+
+    private CursorAdapter ca;
 
     private TextView tv_title;
     private TextView tv_start;
@@ -38,10 +49,35 @@ public class TermViewerActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findElements();
         loadTermData();
+        bindClassList();
+
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    private void bindClassList() {
+        String[] from = { DBOpenHelper.CLASS_NAME, DBOpenHelper.CLASS_START, DBOpenHelper.CLASS_END };
+        int[] to = { R.id.tvClassName, R.id.tvClassStartDate, R.id.tvClassEndDate };
+
+        ca = new SimpleCursorAdapter(this, R.layout.class_list_item, null, from, to, 0);
+        DataProvider db = new DataProvider();
+
+        ListView list = (ListView) findViewById(android.R.id.list);
+        list.setAdapter(ca);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(TermViewerActivity.this, TermViewerActivity.class);
+                Uri uri = Uri.parse(DataProvider.TERM_URI + "/" + id);
+                intent.putExtra(DataProvider.TERM_CONTENT_TYPE, uri);
+                //startActivityForResult(intent, TERM_VIEWER_ACTIVITY_CODE);
+            }
+        });
+
+
     }
 
     private void loadTermData() {
@@ -99,6 +135,21 @@ public class TermViewerActivity extends AppCompatActivity {
         if(resultCode==RESULT_OK){
             loadTermData();
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, DataProvider.CLASS_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        ca.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        ca.swapCursor(null);
     }
 
 }

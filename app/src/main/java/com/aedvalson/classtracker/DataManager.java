@@ -22,6 +22,26 @@ public class DataManager {
         return termUri;
     }
 
+    public static Uri insertClass(Context context, long termId, String className, String classStart,
+                                  String classEnd, String classMentor, String classMentorEmail,
+                                  String classMentorPhone, ClassStatus status) {
+
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.CLASS_TERM_ID, termId);
+        values.put(DBOpenHelper.CLASS_NAME, className);
+        values.put(DBOpenHelper.CLASS_START, classStart);
+        values.put(DBOpenHelper.CLASS_END, classEnd);
+        values.put(DBOpenHelper.CLASS_MENTOR, classMentor);
+        values.put(DBOpenHelper.CLASS_MENTOR_EMAIL, classMentorEmail);
+        values.put(DBOpenHelper.CLASS_MENTOR_PHONE, classMentorPhone);
+        values.put(DBOpenHelper.CLASS_STATUS, status.toString());
+
+        Uri classUri = context.getContentResolver().insert(DataProvider.CLASS_URI, values);
+        Log.d("MainActivity", "Inserted Class: " + classUri.getLastPathSegment());
+
+        return classUri;
+    }
+
     public static Term getTerm(Context context, long id) {
         Cursor cursor = context.getContentResolver().query(DataProvider.TERM_URI, DBOpenHelper.TERM_COLUMNS, DBOpenHelper.TERM_TABLE_ID + "=" + id, null, null);
 

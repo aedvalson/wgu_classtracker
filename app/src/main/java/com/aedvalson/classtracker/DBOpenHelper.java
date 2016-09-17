@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     //Constants for db name and version
     private static final String DATABASE_NAME = "wgu_classes.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     //Constants for identifying table and columns
 
@@ -38,9 +38,17 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String CLASS_END = "classEnd";
     public static final String CLASS_CREATED = "_created";
     public static final String CLASS_DESCRIPTION = "classDescription";
+    public static final String CLASS_MENTOR = "classMentor";
+    public static final String CLASS_MENTOR_PHONE = "classMentorPhone";
+    public static final String CLASS_MENTOR_EMAIL = "classMentorEmail";
+    public static final String CLASS_STATUS = "classStatus";
 
-    public static final String[] TERM_COLUMNS = {TERM_TABLE_ID, TERM_NAME, TERM_START, TERM_END, TERM_CREATED};
-    public static final String[] CLASS_COLUMNS = {CLASS_TABLE_ID, CLASS_NAME, CLASS_START, CLASS_END, CLASS_CREATED, CLASS_DESCRIPTION};
+    public static final String[] TERM_COLUMNS = {TERM_TABLE_ID, TERM_NAME, TERM_START,
+            TERM_END, TERM_CREATED};
+
+    public static final String[] CLASS_COLUMNS = {CLASS_TABLE_ID, CLASS_NAME, CLASS_START,
+            CLASS_END, CLASS_CREATED, CLASS_DESCRIPTION, CLASS_MENTOR, CLASS_MENTOR_EMAIL,
+            CLASS_MENTOR_PHONE};
 
     //SQL to create term table
     private static final String TERM_TABLE_CREATE =
@@ -62,6 +70,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     CLASS_START + " DATE, " +
                     CLASS_END + " DATE, " +
                     CLASS_DESCRIPTION + " TEXT, " +
+                    CLASS_MENTOR + " TEXT, " +
+                    CLASS_MENTOR_EMAIL + " TEXT, " +
+                    CLASS_MENTOR_PHONE + " TEXT, " +
+                    CLASS_STATUS + " TEXT, " +
                     "FOREIGN KEY(" + CLASS_TERM_ID + ") REFERENCES " + TABLE_TERMS + "(" + TERM_TABLE_ID + ")" +
                     ")";
 

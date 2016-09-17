@@ -78,7 +78,12 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,6 +109,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
 
                             // Do the actual delete
                             getContentResolver().delete(DataProvider.TERM_URI, null, null);
+                            getContentResolver().delete(DataProvider.CLASS_URI, null, null);
                             restartLoader();
 
                             // Notify that delete was completed
@@ -124,12 +130,28 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private boolean createSampleData() {
-        DataManager.insertTerm(this, "Spring 2016", "2016-01-01", "2016-06-30");
-        DataManager.insertTerm(this, "Fall 2016", "2016-07-01", "2016-12-31");
-        DataManager.insertTerm(this, "Spring 2017", "2017-01-01", "2017-06-30");
-        DataManager.insertTerm(this, "Fall 2017", "2017-07-01", "2017-12-31");
-        DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30");
-        DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31");
+        Uri term1Uri = DataManager.insertTerm(this, "Spring 2016", "2016-01-01", "2016-06-30");
+        Uri term2Uri = DataManager.insertTerm(this, "Fall 2016", "2016-07-01", "2016-12-31");
+        Uri term3Uri = DataManager.insertTerm(this, "Spring 2017", "2017-01-01", "2017-06-30");
+        Uri term4Uri = DataManager.insertTerm(this, "Fall 2017", "2017-07-01", "2017-12-31");
+        Uri term5Uri = DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30");
+        Uri term6Uri = DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31");
+
+        DataManager.insertClass(this, Long.parseLong(term1Uri.getLastPathSegment()),
+                "C196: Mobile Application Development", "2016-01-01", "2016-02-01",
+                "Pubali Banerjee", "(801) 924-4710", "pubali.banerjee@wgu.edu",
+                ClassStatus.IN_PROGRESS);
+
+        DataManager.insertClass(this, Long.parseLong(term1Uri.getLastPathSegment()),
+                "C179: Business of IT - Applications", "2016-02-01", "2016-03-01",
+                "Course Mentor Group", " ", "cmitbusiness@wgu.edu",
+                ClassStatus.PLAN_TO_TAKE);
+
+        DataManager.insertClass(this, Long.parseLong(term1Uri.getLastPathSegment()),
+                "C195: Software II - Advanced Java Concepts", "2016-03-01", "2016-06-30",
+                "Course Mentor Group", "", "cmprogramming@wgu.edu",
+                ClassStatus.PLAN_TO_TAKE);
+
         restartLoader();
         return true;
     }
