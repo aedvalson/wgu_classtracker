@@ -17,7 +17,7 @@ public class DataManager {
         values.put(DBOpenHelper.TERM_END, termEnd);
 
         Uri termUri = context.getContentResolver().insert(DataProvider.TERM_URI, values);
-        Log.d("MainActivity", "Inserted Term: " + termUri.getLastPathSegment());
+        Log.d("DataManager", "Inserted Term: " + termUri.getLastPathSegment());
 
         return termUri;
     }
@@ -37,7 +37,7 @@ public class DataManager {
         values.put(DBOpenHelper.CLASS_STATUS, status.toString());
 
         Uri classUri = context.getContentResolver().insert(DataProvider.CLASS_URI, values);
-        Log.d("MainActivity", "Inserted Class: " + classUri.getLastPathSegment());
+        Log.d("DataManager", "Inserted Class: " + classUri.getLastPathSegment());
 
         return classUri;
     }

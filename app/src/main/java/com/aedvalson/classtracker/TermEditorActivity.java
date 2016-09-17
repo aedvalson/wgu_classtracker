@@ -138,7 +138,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
                     term.termEndDate
             );
 
-            // Notify that delete was completed
+            // Notify that insert was completed
             Toast.makeText(this,
                     getString(R.string.term_saved),
                     Toast.LENGTH_SHORT).show();
