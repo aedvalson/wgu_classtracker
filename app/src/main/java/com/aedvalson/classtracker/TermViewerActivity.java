@@ -1,6 +1,5 @@
 package com.aedvalson.classtracker;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -10,12 +9,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +26,7 @@ public class TermViewerActivity extends AppCompatActivity
 implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
+    private static final int CLASS_EDITOR_ACTIVITY_CODE = 22222;
     private Term term;
 
     private CursorAdapter ca;
@@ -50,8 +48,8 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(TermViewerActivity.this, ClassEditorActivity.class);
+                startActivityForResult(intent, CLASS_EDITOR_ACTIVITY_CODE);
             }
         });
 
