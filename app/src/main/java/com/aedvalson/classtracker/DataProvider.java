@@ -39,7 +39,7 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, CLASS_PATH + "/#", CLASSES_ID);
     }
 
-    public static final String TERM_CONTENT_TYPE = "Term";
+    public static final String TERM_CONTENT_TYPE = "_Term";
     public static final String CLASS_CONTENT_TYPE = "Class";
 
     private SQLiteDatabase db;
@@ -82,11 +82,11 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 id = db.insert(DBOpenHelper.TABLE_TERMS, null, values);
-                Log.d("MainActivity", "Inserted Term: " + id);
+                Log.d("MainActivity", "Inserted _Term: " + id);
                 return Uri.parse(TERM_PATH + "/" + id);
             case CLASSES:
                 id = db.insert(DBOpenHelper.TABLE_CLASSES, null, values);
-                Log.d("MainActivity", "Inserted Term: " + id);
+                Log.d("MainActivity", "Inserted _Term: " + id);
                 return Uri.parse(CLASS_PATH + "/" + id);
             default:
                 throw new IllegalArgumentException(

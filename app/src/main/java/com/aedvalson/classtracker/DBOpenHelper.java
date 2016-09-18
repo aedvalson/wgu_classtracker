@@ -17,11 +17,11 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     //Constants for db name and version
     private static final String DATABASE_NAME = "wgu_classes.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     //Constants for identifying table and columns
 
-    // Term Table
+    // _Term Table
     public static final String TABLE_TERMS = "terms";
     public static final String TERM_TABLE_ID = "_id";
     public static final String TERM_NAME = "termName";
@@ -43,12 +43,31 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String CLASS_MENTOR_EMAIL = "classMentorEmail";
     public static final String CLASS_STATUS = "classStatus";
 
+    // Class Note Table
+    public static final String TABLE_CLASS_NOTES = "class_notes";
+    public static final String CLASS_NOTE_TABLE_ID = "_id";
+    public static final String CLASS_NOTE_CLASS_ID = "classId";
+    public static final String CLASS_NOTE_TEXT = "text";
+    public static final String CLASS_NOTE_CREATED = "classNoteCreated";
+
     public static final String[] TERM_COLUMNS = {TERM_TABLE_ID, TERM_NAME, TERM_START,
             TERM_END, TERM_CREATED};
 
     public static final String[] CLASS_COLUMNS = {CLASS_TABLE_ID, CLASS_NAME, CLASS_START,
             CLASS_END, CLASS_CREATED, CLASS_DESCRIPTION, CLASS_MENTOR, CLASS_MENTOR_EMAIL,
             CLASS_MENTOR_PHONE};
+
+    public static final String[] CLASS_NOTE_COLUMNS = {CLASS_NOTE_TABLE_ID, CLASS_NOTE_CLASS_ID,
+            CLASS_NOTE_TEXT};
+
+    public static final String CLASS_NOTE_TABLE_CREATE =
+            "CREATE TABLE " + TABLE_CLASS_NOTES + " (" +
+                    CLASS_NOTE_TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    CLASS_NOTE_CLASS_ID + " INTEGER, " +
+                    CLASS_NOTE_TEXT + " TEXT, " +
+                    CLASS_NOTE_CREATED + " TEXT default CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY(" + CLASS_NOTE_CLASS_ID + ") REFERENCES " + TABLE_CLASSES + "(" + CLASS_TABLE_ID + ")" +
+                    ")";
 
     //SQL to create term table
     private static final String TERM_TABLE_CREATE =
@@ -77,6 +96,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     "FOREIGN KEY(" + CLASS_TERM_ID + ") REFERENCES " + TABLE_TERMS + "(" + TERM_TABLE_ID + ")" +
                     ")";
 
+
     public DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -85,12 +105,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TERM_TABLE_CREATE);
         db.execSQL(CLASS_TABLE_CREATE);
+        db.execSQL(CLASS_NOTE_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLASS_NOTES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLASSES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERMS);
         onCreate(db);
     }
 }

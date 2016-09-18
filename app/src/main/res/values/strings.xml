@@ -27,4 +27,5 @@
     <string name="class_mentor">Class Mentor</string>
     <string name="class_mentor_phone">Class Mentor Phone</string>
     <string name="class_mentor_email">Class Mentor Email</string>
+    <string name="add_new_class">Add New Class</string>
 </resources>

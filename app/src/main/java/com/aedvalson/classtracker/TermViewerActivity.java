@@ -27,7 +27,9 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
     private static final int CLASS_EDITOR_ACTIVITY_CODE = 22222;
-    private Term term;
+
+    private Uri termUri;
+    private _Term term;
 
     private CursorAdapter ca;
 
@@ -44,11 +46,15 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        termUri = intent.getParcelableExtra(DataProvider.TERM_CONTENT_TYPE);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TermViewerActivity.this, ClassEditorActivity.class);
+                intent.putExtra(DataProvider.TERM_CONTENT_TYPE, termUri);
                 startActivityForResult(intent, CLASS_EDITOR_ACTIVITY_CODE);
             }
         });
@@ -73,10 +79,10 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TermViewerActivity.this, TermViewerActivity.class);
-                Uri uri = Uri.parse(DataProvider.TERM_URI + "/" + id);
-                intent.putExtra(DataProvider.TERM_CONTENT_TYPE, uri);
-                //startActivityForResult(intent, TERM_VIEWER_ACTIVITY_CODE);
+                Intent intent = new Intent(TermViewerActivity.this, ClassEditorActivity.class);
+                Uri uri = Uri.parse(DataProvider.CLASS_URI + "/" + id);
+                intent.putExtra(DataProvider.CLASS_CONTENT_TYPE, uri);
+                startActivityForResult(intent, CLASS_EDITOR_ACTIVITY_CODE);
             }
         });
 
@@ -84,16 +90,13 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private void loadTermData() {
-        Intent intent = getIntent();
-        Uri uri = intent.getParcelableExtra(DataProvider.TERM_CONTENT_TYPE);
-
-        if (uri == null) {
+        if (termUri == null) {
             setResult(RESULT_CANCELED);
             finish();
         }
 
         else {
-            termId = Long.parseLong(uri.getLastPathSegment());
+            termId = Long.parseLong(termUri.getLastPathSegment());
             term = DataManager.getTerm(this, termId);
 
             setTitle("View Term");
@@ -175,6 +178,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             loadTermData();
+            restartLoader();
         }
     }
 
@@ -191,6 +195,10 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         ca.swapCursor(null);
+    }
+
+    private void restartLoader() {
+        getLoaderManager().restartLoader(0, null, this);
     }
 
 }

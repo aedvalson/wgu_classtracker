@@ -4,8 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -23,7 +21,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
     private static final int MAIN_ACTIVITY_CODE = 1;
     private String action;
     private String termFilter;
-    private Term term;
+    private _Term term;
 
     private EditText termNameField;
     private EditText termStartDateField;
@@ -64,7 +62,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
             setTitle(getString(R.string.add_new_term));
         } else {
             action = Intent.ACTION_EDIT;
-            setTitle("Edit Term");
+            setTitle("Edit _Term");
             long termId = Long.parseLong(uri.getLastPathSegment());
             term = DataManager.getTerm(this, termId);
             fillTermForm(term);
@@ -73,7 +71,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
         setupDatePickers();
     }
 
-    private void fillTermForm(Term t) {
+    private void fillTermForm(_Term t) {
         termNameField.setText(t.termName);
         termStartDateField.setText(t.termStartDate);
         termEndDateField.setText(t.termEndDate);
@@ -129,7 +127,7 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
 
     public void saveTermChanges(View view) {
         if (action == Intent.ACTION_INSERT) {
-            term = new Term();
+            term = new _Term();
             getTermFromForm();
 
             DataManager.insertTerm(this,

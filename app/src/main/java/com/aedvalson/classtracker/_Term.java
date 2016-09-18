@@ -8,7 +8,7 @@ import android.database.DatabaseUtils;
 /**
  * Created by a_edv on 9/13/2016.
  */
-public class Term {
+public class _Term {
     public long termId;
     public String termName;
     public String termStartDate;
