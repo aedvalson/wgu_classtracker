@@ -5,7 +5,7 @@
     <string name="are_you_sure">This will delete all terms! Are you sure you wish to continue?</string>
     <string name="all_deleted">All terms deleted.</string>
     <string name="term_saved">Term was created successfully.</string>
-    <string name="app_name">WGU Class Tracker</string>
+    <string name="app_name">WGU Course Tracker</string>
     <string name="title_activity_term_editor">TermEditorActivity</string>
     <string name="term_name">Term Name</string>
     <string name="start_date">Start Date</string>
@@ -18,14 +18,14 @@
     <string name="delete_term">Delete Term</string>
     <string name="term_deleted">Term successfully deleted.</string>
     <string name="delete_term_confirm">Are you sure you wish to permanently delete this term?</string>
-    <string name="too_many_classes">Classes are already assigned to this term. All classes must be removed before term can be deleted.</string>
-    <string name="title_activity_class_editor">ClassEditor</string>
-    <string name="class_name">Class Name</string>
-    <string name="class_start">Class Start</string>
-    <string name="class_end">Class End</string>
-    <string name="save_class">Save Class</string>
-    <string name="class_mentor">Class Mentor</string>
-    <string name="class_mentor_phone">Class Mentor Phone</string>
-    <string name="class_mentor_email">Class Mentor Email</string>
-    <string name="add_new_class">Add New Class</string>
+    <string name="too_many_courses">Courses are already assigned to this term. All courses must be removed before term can be deleted.</string>
+    <string name="title_activity_course_editor">Course Editor</string>
+    <string name="course_name">Course Name</string>
+    <string name="course_start">Course Start</string>
+    <string name="course_end">Course End</string>
+    <string name="save_course">Save Course</string>
+    <string name="course_mentor">Course Mentor</string>
+    <string name="course_mentor_phone">Course Mentor Phone</string>
+    <string name="course_mentor_email">Course Mentor Email</string>
+    <string name="add_new_course">Add New Course</string>
 </resources>

@@ -21,26 +21,26 @@ public class DataProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.aedvalson.classtracker.dataprovider";
     private static final String TERM_PATH = "terms";
-    public static final String CLASS_PATH = "classes";
+    public static final String COURSE_PATH = "courses";
     public static final Uri TERM_URI = Uri.parse("content://" + AUTHORITY + "/" + TERM_PATH);
-    public static final Uri CLASS_URI = Uri.parse("content://" + AUTHORITY + "/" + CLASS_PATH);
+    public static final Uri COURSE_URI = Uri.parse("content://" + AUTHORITY + "/" + COURSE_PATH);
 
     // Constant to identify the requested operation
     private static final int TERMS = 1;
     public static final int TERMS_ID = 2;
-    public static final int CLASSES = 3;
-    public static final int CLASSES_ID = 4;
+    public static final int COURSES = 3;
+    public static final int COURSES_ID = 4;
 
     public static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
         uriMatcher.addURI(AUTHORITY, TERM_PATH, TERMS);
         uriMatcher.addURI(AUTHORITY, TERM_PATH + "/#", TERMS_ID);
-        uriMatcher.addURI(AUTHORITY, CLASS_PATH, CLASSES);
-        uriMatcher.addURI(AUTHORITY, CLASS_PATH + "/#", CLASSES_ID);
+        uriMatcher.addURI(AUTHORITY, COURSE_PATH, COURSES);
+        uriMatcher.addURI(AUTHORITY, COURSE_PATH + "/#", COURSES_ID);
     }
 
     public static final String TERM_CONTENT_TYPE = "_Term";
-    public static final String CLASS_CONTENT_TYPE = "Class";
+    public static final String COURSE_CONTENT_TYPE = "COURSE";
 
     private SQLiteDatabase db;
     private String currentTable;
@@ -57,8 +57,8 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 return db.query(DBOpenHelper.TABLE_TERMS, DBOpenHelper.TERM_COLUMNS, selection, null, null, null, DBOpenHelper.TERM_TABLE_ID + " ASC");
-            case CLASSES:
-                return db.query(DBOpenHelper.TABLE_CLASSES, DBOpenHelper.CLASS_COLUMNS, selection, null, null, null, DBOpenHelper.CLASS_TABLE_ID + " ASC");
+            case COURSES:
+                return db.query(DBOpenHelper.TABLE_COURSES, DBOpenHelper.COURSE_COLUMNS, selection, null, null, null, DBOpenHelper.COURSE_TABLE_ID + " ASC");
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -84,10 +84,10 @@ public class DataProvider extends ContentProvider {
                 id = db.insert(DBOpenHelper.TABLE_TERMS, null, values);
                 Log.d("MainActivity", "Inserted _Term: " + id);
                 return Uri.parse(TERM_PATH + "/" + id);
-            case CLASSES:
-                id = db.insert(DBOpenHelper.TABLE_CLASSES, null, values);
+            case COURSES:
+                id = db.insert(DBOpenHelper.TABLE_COURSES, null, values);
                 Log.d("MainActivity", "Inserted _Term: " + id);
-                return Uri.parse(CLASS_PATH + "/" + id);
+                return Uri.parse(COURSE_PATH + "/" + id);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -99,8 +99,8 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 return db.delete(DBOpenHelper.TABLE_TERMS, selection, selectionArgs);
-            case CLASSES:
-                return db.delete(DBOpenHelper.TABLE_CLASSES, selection, selectionArgs);
+            case COURSES:
+                return db.delete(DBOpenHelper.TABLE_COURSES, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -112,8 +112,8 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 return db.update(DBOpenHelper.TABLE_TERMS, values, selection, selectionArgs);
-            case CLASSES:
-                return db.update(DBOpenHelper.TABLE_CLASSES, values, selection, selectionArgs);
+            case COURSES:
+                return db.update(DBOpenHelper.TABLE_COURSES, values, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);

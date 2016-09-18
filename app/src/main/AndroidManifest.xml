@@ -42,8 +42,8 @@
                 android:value="com.aedvalson.classtracker.MainActivity" />
         </activity>
         <activity
-            android:name=".ClassEditorActivity"
-            android:label="@string/title_activity_class_editor"
+            android:name=".CourseEditorActivity"
+            android:label="@string/title_activity_course_editor"
             android:parentActivityName=".TermViewerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

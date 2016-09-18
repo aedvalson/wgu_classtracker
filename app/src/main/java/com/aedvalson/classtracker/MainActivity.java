@@ -1,7 +1,6 @@
 package com.aedvalson.classtracker;
 
 import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,11 +8,9 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,7 +106,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
 
                             // Do the actual delete
                             getContentResolver().delete(DataProvider.TERM_URI, null, null);
-                            getContentResolver().delete(DataProvider.CLASS_URI, null, null);
+                            getContentResolver().delete(DataProvider.COURSE_URI, null, null);
                             restartLoader();
 
                             // Notify that delete was completed
@@ -137,20 +134,20 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         Uri term5Uri = DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30");
         Uri term6Uri = DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31");
 
-        DataManager.insertClass(this, Long.parseLong(term1Uri.getLastPathSegment()),
+        DataManager.insertCourse(this, Long.parseLong(term1Uri.getLastPathSegment()),
                 "C196: Mobile Application Development", "2016-01-01", "2016-02-01",
                 "Pubali Banerjee", "(801) 924-4710", "pubali.banerjee@wgu.edu",
-                ClassStatus.IN_PROGRESS);
+                CourseStatus.IN_PROGRESS);
 
-        DataManager.insertClass(this, Long.parseLong(term1Uri.getLastPathSegment()),
+        DataManager.insertCourse(this, Long.parseLong(term1Uri.getLastPathSegment()),
                 "C179: Business of IT - Applications", "2016-02-01", "2016-03-01",
                 "Course Mentor Group", " ", "cmitbusiness@wgu.edu",
-                ClassStatus.PLAN_TO_TAKE);
+                CourseStatus.PLAN_TO_TAKE);
 
-        DataManager.insertClass(this, Long.parseLong(term1Uri.getLastPathSegment()),
+        DataManager.insertCourse(this, Long.parseLong(term1Uri.getLastPathSegment()),
                 "C195: Software II - Advanced Java Concepts", "2016-03-01", "2016-06-30",
                 "Course Mentor Group", "", "cmprogramming@wgu.edu",
-                ClassStatus.PLAN_TO_TAKE);
+                CourseStatus.PLAN_TO_TAKE);
 
         restartLoader();
         return true;

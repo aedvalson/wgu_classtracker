@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ClassEditorActivity"
+    tools:context=".CourseEditorActivity"
     tools:showIn="@layout/activity_class_editor">
 
     <GridLayout
@@ -20,16 +20,16 @@
 
 
         <TextView
-            android:id="@+id/tvClassName"
+            android:id="@+id/tvCourseName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_margin="8dp"
             android:layout_row="0"
-            android:text="@string/class_name" />
+            android:text="@string/course_name" />
 
         <EditText
-            android:id="@+id/etClassName"
+            android:id="@+id/etCourseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -38,16 +38,16 @@
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/tvClassStart"
+            android:id="@+id/tvCourseStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_margin="8dp"
             android:layout_row="1"
-            android:text="@string/class_start" />
+            android:text="@string/course_start" />
 
         <EditText
-            android:id="@+id/etClassStart"
+            android:id="@+id/etCourseStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -56,16 +56,16 @@
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/tvClassEnd"
+            android:id="@+id/tvCourseEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_margin="8dp"
             android:layout_row="2"
-            android:text="@string/class_end" />
+            android:text="@string/course_end" />
 
         <EditText
-            android:id="@+id/etClassEnd"
+            android:id="@+id/etCourseEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -74,16 +74,16 @@
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/tvClassMentor"
+            android:id="@+id/tvCourseMentor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_margin="8dp"
             android:layout_row="3"
-            android:text="@string/class_mentor" />
+            android:text="@string/course_mentor" />
 
         <EditText
-            android:id="@+id/etClassMentor"
+            android:id="@+id/etCourseMentor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -92,16 +92,16 @@
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/tvClassMentorPhone"
+            android:id="@+id/tvCourseMentorPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_margin="8dp"
             android:layout_row="4"
-            android:text="@string/class_mentor_phone" />
+            android:text="@string/course_mentor_phone" />
 
         <EditText
-            android:id="@+id/etClassMentorPhone"
+            android:id="@+id/etCourseMentorPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -110,16 +110,16 @@
             android:inputType="phone" />
 
         <TextView
-            android:id="@+id/tvClassMentorEmail"
+            android:id="@+id/tvCourseMentorEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_margin="8dp"
             android:layout_row="5"
-            android:text="@string/class_mentor_email" />
+            android:text="@string/course_mentor_email" />
 
         <EditText
-            android:id="@+id/etClassMentorEmail"
+            android:id="@+id/etCourseMentorEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -132,12 +132,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_class"
+        android:text="@string/save_course"
         android:id="@+id/button"
         android:layout_below="@+id/gridLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
-        android:onClick="saveClassChanges" />
+        android:onClick="saveCourseChanges" />
 
 
 </RelativeLayout>

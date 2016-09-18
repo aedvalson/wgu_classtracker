@@ -23,7 +23,7 @@ public class _Term {
     }
 
     public long getClassCount(Context context) {
-        Cursor cursor = context.getContentResolver().query(DataProvider.CLASS_URI, DBOpenHelper.CLASS_COLUMNS, DBOpenHelper.CLASS_TERM_ID+ "=" + this.termId, null, null );
+        Cursor cursor = context.getContentResolver().query(DataProvider.COURSE_URI, DBOpenHelper.COURSE_COLUMNS, DBOpenHelper.COURSE_TERM_ID+ "=" + this.termId, null, null );
         int numRows = cursor.getCount();
         return numRows;
 

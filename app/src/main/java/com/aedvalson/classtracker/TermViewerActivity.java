@@ -26,7 +26,7 @@ public class TermViewerActivity extends AppCompatActivity
 implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
-    private static final int CLASS_EDITOR_ACTIVITY_CODE = 22222;
+    private static final int COURSE_EDITOR_ACTIVITY_CODE = 22222;
 
     private Uri termUri;
     private _Term term;
@@ -53,9 +53,9 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TermViewerActivity.this, ClassEditorActivity.class);
+                Intent intent = new Intent(TermViewerActivity.this, CourseEditorActivity.class);
                 intent.putExtra(DataProvider.TERM_CONTENT_TYPE, termUri);
-                startActivityForResult(intent, CLASS_EDITOR_ACTIVITY_CODE);
+                startActivityForResult(intent, COURSE_EDITOR_ACTIVITY_CODE);
             }
         });
 
@@ -67,7 +67,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private void bindClassList() {
-        String[] from = { DBOpenHelper.CLASS_NAME, DBOpenHelper.CLASS_START, DBOpenHelper.CLASS_END };
+        String[] from = { DBOpenHelper.COURSE_NAME, DBOpenHelper.COURSE_START, DBOpenHelper.COURSE_END };
         int[] to = { R.id.tvClassName, R.id.tvClassStartDate, R.id.tvClassEndDate };
 
         ca = new SimpleCursorAdapter(this, R.layout.class_list_item, null, from, to, 0);
@@ -79,10 +79,10 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TermViewerActivity.this, ClassEditorActivity.class);
-                Uri uri = Uri.parse(DataProvider.CLASS_URI + "/" + id);
-                intent.putExtra(DataProvider.CLASS_CONTENT_TYPE, uri);
-                startActivityForResult(intent, CLASS_EDITOR_ACTIVITY_CODE);
+                Intent intent = new Intent(TermViewerActivity.this, CourseEditorActivity.class);
+                Uri uri = Uri.parse(DataProvider.COURSE_URI + "/" + id);
+                intent.putExtra(DataProvider.COURSE_CONTENT_TYPE, uri);
+                startActivityForResult(intent, COURSE_EDITOR_ACTIVITY_CODE);
             }
         });
 
@@ -156,7 +156,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
                             }
                             else {
                                 Toast.makeText(TermViewerActivity.this,
-                                        getString(R.string.too_many_classes),
+                                        getString(R.string.too_many_courses),
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -184,7 +184,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, DataProvider.CLASS_URI, DBOpenHelper.CLASS_COLUMNS, DBOpenHelper.CLASS_TERM_ID + " = " + this.termId, null, null);
+        return new CursorLoader(this, DataProvider.COURSE_URI, DBOpenHelper.COURSE_COLUMNS, DBOpenHelper.COURSE_TERM_ID + " = " + this.termId, null, null);
     }
 
     @Override

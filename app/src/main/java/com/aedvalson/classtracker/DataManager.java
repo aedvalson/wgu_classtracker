@@ -22,24 +22,24 @@ public class DataManager {
         return termUri;
     }
 
-    public static Uri insertClass(Context context, long termId, String className, String classStart,
-                                  String classEnd, String classMentor, String classMentorEmail,
-                                  String classMentorPhone, ClassStatus status) {
+    public static Uri insertCourse(Context context, long termId, String courseName, String courseStart,
+                                  String courseEnd, String courseMentor, String courseMentorEmail,
+                                  String courseMentorPhone, CourseStatus status) {
 
         ContentValues values = new ContentValues();
-        values.put(DBOpenHelper.CLASS_TERM_ID, termId);
-        values.put(DBOpenHelper.CLASS_NAME, className);
-        values.put(DBOpenHelper.CLASS_START, classStart);
-        values.put(DBOpenHelper.CLASS_END, classEnd);
-        values.put(DBOpenHelper.CLASS_MENTOR, classMentor);
-        values.put(DBOpenHelper.CLASS_MENTOR_EMAIL, classMentorEmail);
-        values.put(DBOpenHelper.CLASS_MENTOR_PHONE, classMentorPhone);
-        values.put(DBOpenHelper.CLASS_STATUS, status.toString());
+        values.put(DBOpenHelper.COURSE_TERM_ID, termId);
+        values.put(DBOpenHelper.COURSE_NAME, courseName);
+        values.put(DBOpenHelper.COURSE_START, courseStart);
+        values.put(DBOpenHelper.COURSE_END, courseEnd);
+        values.put(DBOpenHelper.COURSE_MENTOR, courseMentor);
+        values.put(DBOpenHelper.COURSE_MENTOR_EMAIL, courseMentorEmail);
+        values.put(DBOpenHelper.COURSE_MENTOR_PHONE, courseMentorPhone);
+        values.put(DBOpenHelper.COURSE_STATUS, status.toString());
 
-        Uri classUri = context.getContentResolver().insert(DataProvider.CLASS_URI, values);
-        Log.d("DataManager", "Inserted Class: " + classUri.getLastPathSegment());
+        Uri courseUri = context.getContentResolver().insert(DataProvider.COURSE_URI, values);
+        Log.d("DataManager", "Inserted Class: " + courseUri.getLastPathSegment());
 
-        return classUri;
+        return courseUri;
     }
 
     public static _Term getTerm(Context context, long id) {
@@ -59,18 +59,18 @@ public class DataManager {
         return t;
     }
 
-    public static _Class getClass(Context context, long classId) {
-        Cursor cursor = context.getContentResolver().query(DataProvider.CLASS_URI, DBOpenHelper.CLASS_COLUMNS, DBOpenHelper.CLASS_TABLE_ID + "=" + classId, null, null);
+    public static _Course getCourse(Context context, long courseId) {
+        Cursor cursor = context.getContentResolver().query(DataProvider.COURSE_URI, DBOpenHelper.COURSE_COLUMNS, DBOpenHelper.COURSE_TABLE_ID + "=" + courseId, null, null);
 
         cursor.moveToFirst();
-        _Class c = new _Class();
-        c.classId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.CLASS_TABLE_ID));
-        c.className = cursor.getString(cursor.getColumnIndex(DBOpenHelper.CLASS_NAME));
-        c.classStart = cursor.getString(cursor.getColumnIndex(DBOpenHelper.CLASS_START));
-        c.classEnd = cursor.getString(cursor.getColumnIndex(DBOpenHelper.CLASS_END));
-        c.classMentor = cursor.getString(cursor.getColumnIndex(DBOpenHelper.CLASS_MENTOR));
-        c.classMentorEmail = cursor.getString(cursor.getColumnIndex(DBOpenHelper.CLASS_MENTOR_EMAIL));
-        c.classMentorPhone = cursor.getString(cursor.getColumnIndex(DBOpenHelper.CLASS_MENTOR_PHONE));
+        _Course c = new _Course();
+        c.courseId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COURSE_TABLE_ID));
+        c.courseName = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_NAME));
+        c.courseStart = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_START));
+        c.courseEnd = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_END));
+        c.courseMentor = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_MENTOR));
+        c.courseMentorEmail = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_MENTOR_EMAIL));
+        c.courseMentorPhone = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_MENTOR_PHONE));
 
         return c;
     }
