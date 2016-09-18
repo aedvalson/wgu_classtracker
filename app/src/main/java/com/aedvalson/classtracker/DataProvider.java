@@ -82,11 +82,11 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 id = db.insert(DBOpenHelper.TABLE_TERMS, null, values);
-                Log.d("MainActivity", "Inserted _Term: " + id);
+                Log.d("TermListActivity", "Inserted _Term: " + id);
                 return Uri.parse(TERM_PATH + "/" + id);
             case COURSES:
                 id = db.insert(DBOpenHelper.TABLE_COURSES, null, values);
-                Log.d("MainActivity", "Inserted _Term: " + id);
+                Log.d("TermListActivity", "Inserted _Term: " + id);
                 return Uri.parse(COURSE_PATH + "/" + id);
             default:
                 throw new IllegalArgumentException(

@@ -23,13 +23,4 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="@dimen/fab_layout_width"
-        android:layout_height="@dimen/fab_layout_height"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_calendar_clock"
-        android:onClick="openNewTermEditor"/>
-
 </android.support.design.widget.CoordinatorLayout>
