@@ -55,7 +55,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".CourseListActivity" />
-        <activity android:name=".CourseViewer"></activity>
+        <activity
+            android:name=".CourseViewerActivity"
+            android:label="@string/title_activity_course_viewer"
+            android:parentActivityName=".CourseListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.CourseListActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -30,4 +30,5 @@
     <string name="add_new_course">Add New Course</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="classes">Classes</string>
+    <string name="title_activity_course_viewer">CourseViewerActivity</string>
 </resources>
