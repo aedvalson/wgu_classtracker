@@ -31,4 +31,11 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="classes">Classes</string>
     <string name="title_activity_course_viewer">CourseViewerActivity</string>
+    <string name="notes">Notes</string>
+    <string name="title_activity_course_note_list">CourseNoteListActivity</string>
+    <string name="title_activity_assessment_list">AssessmentListActivity</string>
+    <string name="title_activity_assessment_viewer">AssessmentViewerActivity</string>
+    <string name="title_activity_course_note_viewer">CourseNoteViewerActivity</string>
+    <string name="title_activity_assessment_note_list">AssessmentNoteListActivity</string>
+    <string name="title_activity_assessment_note_viewer">AssessmentNoteViewerActivity</string>
 </resources>

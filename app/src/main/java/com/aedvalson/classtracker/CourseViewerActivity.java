@@ -58,4 +58,9 @@ public class CourseViewerActivity extends AppCompatActivity {
     }
 
 
+    public void openClassNotesList(View view) {
+    }
+
+    public void openAssessments(View view) {
+    }
 }

@@ -13,39 +13,92 @@
     tools:showIn="@layout/activity_course_viewer">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Course Name"
         android:id="@+id/tvCourseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="Course Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2000-01-01"
         android:id="@+id/tvCourseStart"
-        android:layout_below="@+id/tvCourseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvCourseName"
+        android:text="2000-01-01" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" - "
         android:id="@+id/textView11"
-        android:layout_below="@+id/tvCourseName"
-        android:layout_toRightOf="@+id/tvCourseStart"
-        android:layout_toEndOf="@+id/tvCourseStart" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2000-02-01"
-        android:id="@+id/tvCourseEnd"
         android:layout_below="@+id/tvCourseName"
+        android:layout_toEndOf="@+id/tvCourseStart"
+        android:layout_toRightOf="@+id/tvCourseStart"
+        android:text=" - " />
+
+    <TextView
+        android:id="@+id/tvCourseEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCourseName"
+        android:layout_toEndOf="@+id/textView11"
         android:layout_toRightOf="@+id/textView11"
-        android:layout_toEndOf="@+id/textView11" />
+        android:text="2000-02-01" />
+
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvCourseStart">
+
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="134dp"
+            android:layout_height="125dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:onClick="openClassNotesList"
+            android:padding="18dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_comment_text_outline_black_36dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginLeft="8dp"
+            android:layout_row="1"
+            android:onClick="openClassNotesList"
+            android:text="@string/notes"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:layout_width="133dp"
+            android:layout_height="124dp"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:onClick="openAssessments"
+            android:padding="18dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_query_builder_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginLeft="8dp"
+            android:layout_row="1"
+            android:onClick="openAssessments"
+            android:text="Assessments"
+            android:textSize="16sp" />
+
+    </GridLayout>
 </RelativeLayout>

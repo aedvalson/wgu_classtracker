@@ -64,6 +64,55 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.aedvalson.classtracker.CourseListActivity" />
         </activity>
+        <activity
+            android:name=".CourseNoteListActivity"
+            android:label="@string/title_activity_course_note_list"
+            android:parentActivityName=".CourseViewerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.CourseViewerActivity" />
+        </activity>
+        <activity
+            android:name=".AssessmentListActivity"
+            android:label="@string/title_activity_assessment_list"
+            android:parentActivityName=".CourseViewerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.CourseViewerActivity" />
+        </activity>
+        <activity
+            android:name=".AssessmentViewerActivity"
+            android:label="@string/title_activity_assessment_viewer"
+            android:parentActivityName=".AssessmentListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.AssessmentListActivity" />
+        </activity>
+        <activity
+            android:name=".CourseNoteViewerActivity"
+            android:label="@string/title_activity_course_note_viewer"
+            android:parentActivityName=".CourseNoteListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.CourseNoteListActivity" />
+        </activity>
+        <activity
+            android:name=".AssessmentNoteListActivity"
+            android:label="@string/title_activity_assessment_note_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AssessmentNoteViewerActivity"
+            android:label="@string/title_activity_assessment_note_viewer"
+            android:parentActivityName=".AssessmentNoteListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.AssessmentNoteListActivity" />
+        </activity>
     </application>
 
 </manifest>
