@@ -11,8 +11,7 @@
         <activity
             android:name=".TermListActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name=".DataProvider"
@@ -51,9 +50,12 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CourseListActivity" />
+        <activity android:name=".CourseViewer"></activity>
     </application>
 
 </manifest>

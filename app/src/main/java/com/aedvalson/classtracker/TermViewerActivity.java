@@ -1,32 +1,24 @@
 package com.aedvalson.classtracker;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TermViewerActivity extends AppCompatActivity
-implements LoaderManager.LoaderCallbacks<Cursor> {
+public class TermViewerActivity extends AppCompatActivity {
 
     private static final int TERM_EDITOR_ACTIVITY_CODE = 11111;
-    private static final int COURSE_EDITOR_ACTIVITY_CODE = 22222;
+
+    private static final int COURSE_LIST_ACTIVITY_CODE = 33333;
 
     private Uri termUri;
     private _Term term;
@@ -49,45 +41,14 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         Intent intent = getIntent();
         termUri = intent.getParcelableExtra(DataProvider.TERM_CONTENT_TYPE);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TermViewerActivity.this, CourseEditorActivity.class);
-                intent.putExtra(DataProvider.TERM_CONTENT_TYPE, termUri);
-                startActivityForResult(intent, COURSE_EDITOR_ACTIVITY_CODE);
-            }
-        });
+
 
         findElements();
         loadTermData();
-        bindClassList();
-
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-    private void bindClassList() {
-        String[] from = { DBOpenHelper.COURSE_NAME, DBOpenHelper.COURSE_START, DBOpenHelper.COURSE_END };
-        int[] to = { R.id.tvClassName, R.id.tvClassStartDate, R.id.tvClassEndDate };
-
-        ca = new SimpleCursorAdapter(this, R.layout.class_list_item, null, from, to, 0);
-        DataProvider db = new DataProvider();
-
-        ListView list = (ListView) findViewById(android.R.id.list);
-        list.setAdapter(ca);
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TermViewerActivity.this, CourseEditorActivity.class);
-                Uri uri = Uri.parse(DataProvider.COURSE_URI + "/" + id);
-                intent.putExtra(DataProvider.COURSE_CONTENT_TYPE, uri);
-                startActivityForResult(intent, COURSE_EDITOR_ACTIVITY_CODE);
-            }
-        });
-
 
     }
+
+
 
     private void loadTermData() {
         if (termUri == null) {
@@ -173,32 +134,11 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            loadTermData();
-            restartLoader();
-        }
-    }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, DataProvider.COURSE_URI, DBOpenHelper.COURSE_COLUMNS, DBOpenHelper.COURSE_TERM_ID + " = " + this.termId, null, null);
-    }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        ca.swapCursor(data);
+    public void openClassList(View view) {
+        Intent intent = new Intent(this, CourseListActivity.class);
+        intent.putExtra(DataProvider.TERM_CONTENT_TYPE, termUri);
+        startActivityForResult(intent, COURSE_LIST_ACTIVITY_CODE);
     }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        ca.swapCursor(null);
-    }
-
-    private void restartLoader() {
-        getLoaderManager().restartLoader(0, null, this);
-    }
-
 }

@@ -28,6 +28,6 @@
     <string name="course_mentor_phone">Course Mentor Phone</string>
     <string name="course_mentor_email">Course Mentor Email</string>
     <string name="add_new_course">Add New Course</string>
-    <string name="courses">Courses</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="classes">Classes</string>
 </resources>
