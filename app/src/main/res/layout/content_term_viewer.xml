@@ -82,6 +82,7 @@
             android:id="@+id/imageButton3"
             android:layout_row="0"
             android:src="@drawable/ic_calendar_multiple_black_48dp"
+            android:onClick="openClassList"
             android:layout_column="0" />
 
         <TextView

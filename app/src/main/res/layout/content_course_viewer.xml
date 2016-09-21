@@ -12,4 +12,40 @@
     tools:context="com.aedvalson.classtracker.CourseViewerActivity"
     tools:showIn="@layout/activity_course_viewer">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Course Name"
+        android:id="@+id/tvCourseName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2000-01-01"
+        android:id="@+id/tvCourseStart"
+        android:layout_below="@+id/tvCourseName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" - "
+        android:id="@+id/textView11"
+        android:layout_below="@+id/tvCourseName"
+        android:layout_toRightOf="@+id/tvCourseStart"
+        android:layout_toEndOf="@+id/tvCourseStart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2000-02-01"
+        android:id="@+id/tvCourseEnd"
+        android:layout_below="@+id/tvCourseName"
+        android:layout_toRightOf="@+id/textView11"
+        android:layout_toEndOf="@+id/textView11" />
 </RelativeLayout>

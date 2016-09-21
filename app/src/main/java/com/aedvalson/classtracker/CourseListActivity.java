@@ -18,7 +18,9 @@ import android.widget.SimpleCursorAdapter;
 public class CourseListActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int COURSE_VIEWER_ACTIVITY_CODE = 11111;
     private static final int COURSE_EDITOR_ACTIVITY_CODE = 22222;
+
 
     private long termId;
     private Uri termUri;
@@ -62,10 +64,10 @@ public class CourseListActivity extends AppCompatActivity
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CourseListActivity.this, CourseEditorActivity.class);
+                Intent intent = new Intent(CourseListActivity.this, CourseViewerActivity.class);
                 Uri uri = Uri.parse(DataProvider.COURSE_URI + "/" + id);
                 intent.putExtra(DataProvider.COURSE_CONTENT_TYPE, uri);
-                startActivityForResult(intent, COURSE_EDITOR_ACTIVITY_CODE);
+                startActivityForResult(intent, COURSE_VIEWER_ACTIVITY_CODE);
             }
         });
 
