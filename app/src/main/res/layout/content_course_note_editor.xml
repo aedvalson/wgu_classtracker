@@ -9,21 +9,30 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aedvalson.classtracker.CourseNoteViewerActivity"
-    tools:showIn="@layout/activity_course_note_viewer">
+    tools:context="com.aedvalson.classtracker.CourseNoteEditorActivity"
+    tools:showIn="@layout/activity_course_note_editor">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvNoteText"
-        android:textSize="18sp"
-        android:lineSpacingExtra="2dp"
-        android:layout_alignParentTop="true"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:ems="10"
+        android:id="@+id/etCourseNoteText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
+        android:hint="@string/note_text_hint"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_note"
+        android:onClick="saveCourseNote"
+        android:id="@+id/button2"
+        android:layout_below="@+id/etCourseNoteText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp" />
 
 </RelativeLayout>

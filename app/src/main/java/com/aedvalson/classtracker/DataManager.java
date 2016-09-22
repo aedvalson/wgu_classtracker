@@ -74,4 +74,27 @@ public class DataManager {
 
         return c;
     }
+
+    public static Uri insertCourseNote(Context context, long courseId, String text) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.COURSE_NOTE_TEXT, text);
+        values.put(DBOpenHelper.COURSE_NOTE_COURSE_ID, courseId);
+
+        Uri courseUri = context.getContentResolver().insert(DataProvider.COURSE_NOTE_URI, values);
+        Log.d("DataManager", "Inserted Course Note: " + courseUri.getLastPathSegment());
+
+        return courseUri;
+    }
+
+    public static _CourseNote getCourseNote(Context context, long courseNoteId) {
+        Cursor cursor = context.getContentResolver().query(DataProvider.COURSE_NOTE_URI, DBOpenHelper.COURSE_NOTE_COLUMNS, DBOpenHelper.COURSE_NOTE_TABLE_ID + "=" + courseNoteId, null, null);
+
+        cursor.moveToFirst();
+        _CourseNote c = new _CourseNote(courseNoteId);
+        c.text = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_NOTE_TEXT));
+        c.courseId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COURSE_NOTE_COURSE_ID));
+        return c;
+    }
+
+
 }

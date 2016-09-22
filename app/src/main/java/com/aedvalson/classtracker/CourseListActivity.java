@@ -75,8 +75,6 @@ public class CourseListActivity extends AppCompatActivity
                 startActivityForResult(intent, COURSE_VIEWER_ACTIVITY_CODE);
             }
         });
-
-
     }
 
     private void loadTermData() {

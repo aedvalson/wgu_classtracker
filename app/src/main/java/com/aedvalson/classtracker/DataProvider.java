@@ -112,12 +112,16 @@ public class DataProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case TERMS:
                 id = db.insert(DBOpenHelper.TABLE_TERMS, null, values);
-                Log.d("TermListActivity", "Inserted _Term: " + id);
+                Log.d("DataProvider", "Inserted _Term: " + id);
                 return Uri.parse(TERM_PATH + "/" + id);
             case COURSES:
                 id = db.insert(DBOpenHelper.TABLE_COURSES, null, values);
-                Log.d("TermListActivity", "Inserted _Term: " + id);
+                Log.d("DataProvider", "Inserted _Term: " + id);
                 return Uri.parse(COURSE_PATH + "/" + id);
+            case COURSE_NOTES:
+                id = db.insert(DBOpenHelper.TABLE_COURSE_NOTES, null, values);
+                Log.d("DataProvider", "Inserted _CourseNote: " + id);
+                return Uri.parse(COURSE_NOTE_PATH + "/" + id);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -144,6 +148,8 @@ public class DataProvider extends ContentProvider {
                 return db.update(DBOpenHelper.TABLE_TERMS, values, selection, selectionArgs);
             case COURSES:
                 return db.update(DBOpenHelper.TABLE_COURSES, values, selection, selectionArgs);
+            case COURSE_NOTES:
+                return db.update(DBOpenHelper.TABLE_COURSE_NOTES, values, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);

@@ -32,7 +32,7 @@
     <string name="classes">Classes</string>
     <string name="title_activity_course_viewer">View Course</string>
     <string name="notes">Notes</string>
-    <string name="title_activity_course_note_list">CourseNoteListActivity</string>
+    <string name="title_activity_course_note_list">Course Notes</string>
     <string name="title_activity_assessment_list">AssessmentListActivity</string>
     <string name="title_activity_assessment_viewer">AssessmentViewerActivity</string>
     <string name="title_activity_course_note_viewer">CourseNoteViewerActivity</string>
@@ -40,4 +40,8 @@
     <string name="title_activity_assessment_note_viewer">AssessmentNoteViewerActivity</string>
     <string name="title_activity_assessment_editor">AssessmentEditorActivity</string>
     <string name="term_list">Term List</string>
+    <string name="title_activity_course_note_editor">Edit Course Note</string>
+    <string name="note_title">Enter Note Title...</string>
+    <string name="note_text_hint">Enter your note text here...</string>
+    <string name="save_note">Save Note</string>
 </resources>
