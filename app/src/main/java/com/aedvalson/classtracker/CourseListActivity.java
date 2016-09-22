@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
@@ -32,6 +33,8 @@ public class CourseListActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +45,8 @@ public class CourseListActivity extends AppCompatActivity
                 startActivityForResult(intent, COURSE_EDITOR_ACTIVITY_CODE);
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         termUri = intent.getParcelableExtra(DataProvider.TERM_CONTENT_TYPE);
@@ -83,7 +88,7 @@ public class CourseListActivity extends AppCompatActivity
         else {
             termId = Long.parseLong(termUri.getLastPathSegment());
             term = DataManager.getTerm(this, termId);
-            setTitle("View Term");
+            setTitle("Courses");
         }
     }
 

@@ -6,14 +6,14 @@
     <string name="all_deleted">All terms deleted.</string>
     <string name="term_saved">Term was created successfully.</string>
     <string name="app_name">WGU Course Tracker</string>
-    <string name="title_activity_term_editor">TermEditorActivity</string>
+    <string name="title_activity_term_editor">Term Editor</string>
     <string name="term_name">Term Name</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="save_term">Save Term</string>
     <string name="add_new_term">Add New Term</string>
     <string name="term_updated">Term was successfully updated.</string>
-    <string name="title_activity_term_viewer">TermViewerActivity</string>
+    <string name="title_activity_term_viewer">Term Viewer</string>
     <string name="edit_term">Edit Term</string>
     <string name="delete_term">Delete Term</string>
     <string name="term_deleted">Term successfully deleted.</string>
@@ -28,9 +28,9 @@
     <string name="course_mentor_phone">Course Mentor Phone</string>
     <string name="course_mentor_email">Course Mentor Email</string>
     <string name="add_new_course">Add New Course</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">WGU Course Tracker</string>
     <string name="classes">Classes</string>
-    <string name="title_activity_course_viewer">CourseViewerActivity</string>
+    <string name="title_activity_course_viewer">View Course</string>
     <string name="notes">Notes</string>
     <string name="title_activity_course_note_list">CourseNoteListActivity</string>
     <string name="title_activity_assessment_list">AssessmentListActivity</string>
@@ -38,4 +38,6 @@
     <string name="title_activity_course_note_viewer">CourseNoteViewerActivity</string>
     <string name="title_activity_assessment_note_list">AssessmentNoteListActivity</string>
     <string name="title_activity_assessment_note_viewer">AssessmentNoteViewerActivity</string>
+    <string name="title_activity_assessment_editor">AssessmentEditorActivity</string>
+    <string name="term_list">Term List</string>
 </resources>

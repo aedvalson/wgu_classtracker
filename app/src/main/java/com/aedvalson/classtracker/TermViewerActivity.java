@@ -37,6 +37,7 @@ public class TermViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_term_viewer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         termUri = intent.getParcelableExtra(DataProvider.TERM_CONTENT_TYPE);

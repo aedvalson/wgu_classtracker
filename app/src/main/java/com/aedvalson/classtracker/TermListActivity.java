@@ -43,6 +43,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         setContentView(R.layout.activity_term_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String[] from = { DBOpenHelper.TERM_NAME, DBOpenHelper.TERM_START, DBOpenHelper.TERM_END };
         int[] to = { R.id.tvTerm, R.id.tvTermStartDate, R.id.tvTermEndDate };
