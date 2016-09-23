@@ -33,8 +33,8 @@
     <string name="title_activity_course_viewer">View Course</string>
     <string name="notes">Notes</string>
     <string name="title_activity_course_note_list">Course Notes</string>
-    <string name="title_activity_assessment_list">AssessmentListActivity</string>
-    <string name="title_activity_assessment_viewer">AssessmentViewerActivity</string>
+    <string name="title_activity_assessment_list">Assessments</string>
+    <string name="title_activity_assessment_viewer">View Assessment</string>
     <string name="title_activity_course_note_viewer">CourseNoteViewerActivity</string>
     <string name="title_activity_assessment_note_list">AssessmentNoteListActivity</string>
     <string name="title_activity_assessment_note_viewer">AssessmentNoteViewerActivity</string>
@@ -44,4 +44,30 @@
     <string name="note_title">Enter Note Title...</string>
     <string name="note_text_hint">Enter your note text here...</string>
     <string name="save_note">Save Note</string>
+
+
+    <string name="long_test_note">Designing Effective Navigation\n\n
+Get started\n\n
+Dependencies and prerequisites\n\n
+This class is not specific to any particular version of the Android platform. It is also primarily design-focused and does not require knowledge of the Android SDK. That said, you should have experience using an Android device for a better understanding of the context in which Android applications run.\n\n
+
+You should also have basic familiarity with the Action Bar (pattern docs at Android Design), used across most applications in devices running Android 3.0 and later.\n\n
+
+One of the very first steps to designing and developing an Android application is to determine what users are able to see and do with the app. Once you know what kinds of data users are interacting with in the app, the next step is to design the interactions that allow users to navigate across, into, and back out from the different pieces of content within the app.\n\n
+
+This class shows you how to plan out the high-level screen hierarchy for your application and then choose appropriate forms of navigation to allow users to effectively and intuitively traverse your content. Each lesson covers various stages in the interaction design process for navigation in Android applications, in roughly chronological order. After going through the lessons in this class, you should be able to apply the methodology and navigation paradigms outlined here to your own applications, providing a coherent navigation experience for your users.\n\n
+
+Lessons\n\n
+Planning Screens and Their Relationships\n\n
+Learn how to choose which screens your application should contain. Also learn how to choose which screens should be directly reachable from others. This lesson introduces a hypothetical news application to serve as an example for later lessons.\n\n
+Planning for Multiple Touchscreen Sizes\n\n
+Learn how to group related screens together on larger-screen devices to optimize use of available screen space.\n\n
+Providing Descendant and Lateral Navigation\n\n
+Learn about techniques for allowing users to navigate deep into, as well as across, your content hierarchy. Also learn about pros and cons of, and best practices for, specific navigational UI elements for various situations.\n\n
+Providing Ancestral and Temporal Navigation\n\n
+Learn how to allow users to navigate upwards in the content hierarchy. Also learn about best practices for the Back button and temporal navigation, or navigation to previous screens that may not be hierarchically related.\n\n
+Putting it All Together: Wireframing the Example App\n\n
+Learn how to create screen wireframes (low-fidelity graphic mockups) representing the screens in a news application based on the desired information model. These wireframes utilize navigational elements discussed in previous lessons to demonstrate intuitive and efficient navigation.</string>
+
+
 </resources>

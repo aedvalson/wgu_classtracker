@@ -122,6 +122,14 @@ public class DataProvider extends ContentProvider {
                 id = db.insert(DBOpenHelper.TABLE_COURSE_NOTES, null, values);
                 Log.d("DataProvider", "Inserted _CourseNote: " + id);
                 return Uri.parse(COURSE_NOTE_PATH + "/" + id);
+            case ASSESSMENTS:
+                id = db.insert(DBOpenHelper.TABLE_ASSESSMENTS, null, values);
+                Log.d("DataProvider", "Inserted _Assessment: " + id);
+                return Uri.parse(ASSESSMENT_PATH + "/" + id);
+            case ASSESSMENT_NOTES:
+                id = db.insert(DBOpenHelper.TABLE_ASSESSMENT_NOTES, null, values);
+                Log.d("DataProvider", "Inserted _AssessmentNote: " + id);
+                return Uri.parse(ASSESSMENT_NOTE_PATH + "/" + id);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -135,6 +143,12 @@ public class DataProvider extends ContentProvider {
                 return db.delete(DBOpenHelper.TABLE_TERMS, selection, selectionArgs);
             case COURSES:
                 return db.delete(DBOpenHelper.TABLE_COURSES, selection, selectionArgs);
+            case COURSE_NOTES:
+                return db.delete(DBOpenHelper.TABLE_COURSE_NOTES, selection, selectionArgs);
+            case ASSESSMENTS:
+                return db.delete(DBOpenHelper.TABLE_ASSESSMENTS, selection, selectionArgs);
+            case ASSESSMENT_NOTES:
+                return db.delete(DBOpenHelper.TABLE_ASSESSMENT_NOTES, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -150,6 +164,10 @@ public class DataProvider extends ContentProvider {
                 return db.update(DBOpenHelper.TABLE_COURSES, values, selection, selectionArgs);
             case COURSE_NOTES:
                 return db.update(DBOpenHelper.TABLE_COURSE_NOTES, values, selection, selectionArgs);
+            case ASSESSMENTS:
+                return db.update(DBOpenHelper.TABLE_ASSESSMENTS, values, selection, selectionArgs);
+            case ASSESSMENT_NOTES:
+                return db.update(DBOpenHelper.TABLE_ASSESSMENT_NOTES, values, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);

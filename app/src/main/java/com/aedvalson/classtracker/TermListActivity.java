@@ -108,6 +108,9 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
                             // Do the actual delete
                             getContentResolver().delete(DataProvider.TERM_URI, null, null);
                             getContentResolver().delete(DataProvider.COURSE_URI, null, null);
+                            getContentResolver().delete(DataProvider.COURSE_NOTE_URI, null, null);
+                            getContentResolver().delete(DataProvider.ASSESSMENT_URI, null, null);
+                            getContentResolver().delete(DataProvider.ASSESSMENT_NOTE_URI, null, null);
                             restartLoader();
 
                             // Notify that delete was completed
@@ -135,7 +138,7 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         Uri term5Uri = DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30");
         Uri term6Uri = DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31");
 
-        DataManager.insertCourse(this, Long.parseLong(term1Uri.getLastPathSegment()),
+        Uri course1Uri = DataManager.insertCourse(this, Long.parseLong(term1Uri.getLastPathSegment()),
                 "C196: Mobile Application Development", "2016-01-01", "2016-02-01",
                 "Pubali Banerjee", "(801) 924-4710", "pubali.banerjee@wgu.edu",
                 CourseStatus.IN_PROGRESS);
@@ -149,6 +152,23 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
                 "C195: Software II - Advanced Java Concepts", "2016-03-01", "2016-06-30",
                 "Course Mentor Group", "", "cmprogramming@wgu.edu",
                 CourseStatus.PLAN_TO_TAKE);
+
+        DataManager.insertCourseNote(this, Long.parseLong(course1Uri.getLastPathSegment()),
+                "This is a short test note");
+
+        DataManager.insertCourseNote(this, Long.parseLong(course1Uri.getLastPathSegment()),
+                getString(R.string.long_test_note));
+
+        DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "CLP1",
+                "Mobile Application Development", "As a competent mobile application developer, your understanding of mobile application structure and design will help you to develop applications to meet customer requirements. The following project to develop a student scheduler/student progress tracking application, will help you to apply these skills in a familiar, real-world scenario. This task will allow you to demonstrate your ability to apply the skills learned in the course.\n" +
+                        "\n" +
+                        "You will develop a multiple-screen mobile application for WGU students to track their terms, courses associated with each term, and assessment(s) associated with each course. The application will allow students to enter, edit, and delete term, course, and assessment data. It should provide summary and detailed views of courses for each term and provide alerts for upcoming performance and objective assessments. This application will use a SQLite database.\n" +
+                        "\n\n" +
+                        "adding another line");
+
+        DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "ABC3",
+                "Second Assessment, although this one has a name that won't fit on the grid", "Assessment Description");
+
 
         restartLoader();
         return true;

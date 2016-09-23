@@ -1,13 +1,18 @@
 package com.aedvalson.classtracker;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class AssessmentViewerActivity extends AppCompatActivity {
+
+    private TextView tvAssessmentTitle;
+    private TextView tvAssessmentDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,16 @@ public class AssessmentViewerActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Uri assessmentUri = getIntent().getParcelableExtra(DataProvider.ASSESSMENT_CONTENT_TYPE);
+        long assessmentId = Long.parseLong(assessmentUri.getLastPathSegment());
+        _Assessment assessment = DataManager.getAssessment(this, assessmentId);
+
+        tvAssessmentTitle = (TextView) findViewById(R.id.tvAssessmentTitle);
+        tvAssessmentDesc = (TextView) findViewById(R.id.tvAssessmentDesc);
+
+        tvAssessmentTitle.setText(assessment.code + ": " + assessment.name);
+        tvAssessmentDesc.setText(assessment.description);
     }
 
 }

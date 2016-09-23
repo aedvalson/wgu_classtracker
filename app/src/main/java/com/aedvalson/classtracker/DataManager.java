@@ -23,8 +23,8 @@ public class DataManager {
     }
 
     public static Uri insertCourse(Context context, long termId, String courseName, String courseStart,
-                                  String courseEnd, String courseMentor, String courseMentorEmail,
-                                  String courseMentorPhone, CourseStatus status) {
+                                   String courseEnd, String courseMentor, String courseMentorEmail,
+                                   String courseMentorPhone, CourseStatus status) {
 
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.COURSE_TERM_ID, termId);
@@ -94,6 +94,33 @@ public class DataManager {
         c.text = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COURSE_NOTE_TEXT));
         c.courseId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.COURSE_NOTE_COURSE_ID));
         return c;
+    }
+
+    public static _Assessment getAssessment(Context context, long assessmentId) {
+        Cursor cursor = context.getContentResolver().query(DataProvider.ASSESSMENT_URI, DBOpenHelper.ASSESSMENT_COLUMNS, DBOpenHelper.ASSESSMENT_TABLE_ID + "=" + assessmentId, null, null);
+
+        cursor.moveToFirst();
+        _Assessment assessment = new _Assessment(assessmentId);
+        assessment.code = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_CODE));
+        assessment.courseId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_COURSE_ID));
+        assessment.name = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NAME));
+        assessment.description = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DESCRIPTION));
+        return assessment;
+    }
+
+    public static Uri insertAssessment(Context context, long courseId, String code, String name, String description) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.ASSESSMENT_COURSE_ID, courseId);
+        values.put(DBOpenHelper.ASSESSMENT_CODE, code);
+        values.put(DBOpenHelper.ASSESSMENT_NAME, name);
+        values.put(DBOpenHelper.ASSESSMENT_DESCRIPTION, description);
+
+        Uri assessmentUri = context.getContentResolver().insert(DataProvider.ASSESSMENT_URI, values);
+        Log.d("DataManager", "Inserted Assessment: " + assessmentUri.getLastPathSegment());
+
+        return assessmentUri;
+
+
     }
 
 

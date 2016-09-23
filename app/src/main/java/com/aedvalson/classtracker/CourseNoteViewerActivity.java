@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
     private void loadNote() {
         _CourseNote cn = DataManager.getCourseNote(this, courseNoteId);
         tvNoteText.setText(cn.text);
+        tvNoteText.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override
