@@ -68,6 +68,7 @@ Providing Ancestral and Temporal Navigation\n\n
 Learn how to allow users to navigate upwards in the content hierarchy. Also learn about best practices for the Back button and temporal navigation, or navigation to previous screens that may not be hierarchically related.\n\n
 Putting it All Together: Wireframing the Example App\n\n
 Learn how to create screen wireframes (low-fidelity graphic mockups) representing the screens in a news application based on the desired information model. These wireframes utilize navigational elements discussed in previous lessons to demonstrate intuitive and efficient navigation.</string>
+    <string name="save_assessment">Save Assessment</string>
 
 
 </resources>
