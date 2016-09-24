@@ -9,6 +9,7 @@ public class _Assessment {
     public String name;
     public long courseId;
     public String description;
+    public String dateTime;
 
     public _Assessment(long id) {
         assessmentId = id;

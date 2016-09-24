@@ -13,6 +13,7 @@ public class AssessmentViewerActivity extends AppCompatActivity {
 
     private TextView tvAssessmentTitle;
     private TextView tvAssessmentDesc;
+    private TextView tvAssessmentDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,12 @@ public class AssessmentViewerActivity extends AppCompatActivity {
 
         tvAssessmentTitle = (TextView) findViewById(R.id.tvAssessmentTitle);
         tvAssessmentDesc = (TextView) findViewById(R.id.tvAssessmentDesc);
+        tvAssessmentDateTime = (TextView) findViewById(R.id.tvAssessmentDateTime);
+
 
         tvAssessmentTitle.setText(assessment.code + ": " + assessment.name);
         tvAssessmentDesc.setText(assessment.description);
+        tvAssessmentDateTime.setText(assessment.dateTime);
     }
 
 }

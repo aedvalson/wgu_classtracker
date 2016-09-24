@@ -51,8 +51,8 @@ public class AssessmentListActivity extends AppCompatActivity
     }
 
     private void bindAssessmentList() {
-        String[] from = { DBOpenHelper.ASSESSMENT_CODE, DBOpenHelper.ASSESSMENT_NAME };
-        int[] to = { R.id.tvAssessmentCode, R.id.tvNoteText };
+        String[] from = { DBOpenHelper.ASSESSMENT_CODE, DBOpenHelper.ASSESSMENT_NAME, DBOpenHelper.ASSESSMENT_DATE_TIME };
+        int[] to = { R.id.tvAssessmentCode, R.id.tvNoteText, R.id.tvAssessmentDateTime };
 
         ca = new SimpleCursorAdapter(this, R.layout.assessment_list_item, null, from, to, 0);
         DataProvider db = new DataProvider();

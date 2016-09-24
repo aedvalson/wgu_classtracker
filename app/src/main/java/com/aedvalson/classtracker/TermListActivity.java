@@ -164,10 +164,11 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
                         "\n" +
                         "You will develop a multiple-screen mobile application for WGU students to track their terms, courses associated with each term, and assessment(s) associated with each course. The application will allow students to enter, edit, and delete term, course, and assessment data. It should provide summary and detailed views of courses for each term and provide alerts for upcoming performance and objective assessments. This application will use a SQLite database.\n" +
                         "\n\n" +
-                        "adding another line");
+                        "adding another line", "2016-10-01 02:30:00 PM");
 
         DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "ABC3",
-                "Second Assessment, although this one has a name that won't fit on the grid", "Assessment Description");
+                "Second Assessment, although this one has a name that won't fit on the grid",
+                "Assessment Description", "2016-10-01 10:30:00 AM");
 
 
         restartLoader();

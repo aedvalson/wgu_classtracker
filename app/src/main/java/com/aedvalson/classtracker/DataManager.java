@@ -105,14 +105,16 @@ public class DataManager {
         assessment.courseId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_COURSE_ID));
         assessment.name = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NAME));
         assessment.description = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DESCRIPTION));
+        assessment.dateTime = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DATE_TIME));
         return assessment;
     }
 
-    public static Uri insertAssessment(Context context, long courseId, String code, String name, String description) {
+    public static Uri insertAssessment(Context context, long courseId, String code, String name, String description, String dateTime) {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.ASSESSMENT_COURSE_ID, courseId);
         values.put(DBOpenHelper.ASSESSMENT_CODE, code);
         values.put(DBOpenHelper.ASSESSMENT_NAME, name);
+        values.put(DBOpenHelper.ASSESSMENT_DATE_TIME, dateTime);
         values.put(DBOpenHelper.ASSESSMENT_DESCRIPTION, description);
 
         Uri assessmentUri = context.getContentResolver().insert(DataProvider.ASSESSMENT_URI, values);
