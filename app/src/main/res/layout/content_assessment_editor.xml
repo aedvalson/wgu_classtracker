@@ -21,7 +21,7 @@
         android:layout_below="@+id/gridLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="21dp"
-        android:onClick="saveCourseChanges" />
+        android:onClick="saveAssessmentChanges" />
 
     <GridLayout
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.aedvalson.classtracker;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 
 public class AssessmentViewerActivity extends AppCompatActivity {
+
+    private static final int ASSESSMENT_EDITOR_ACTIVITY_CODE = 11111;
+    private long assessmentId;
 
     private TextView tvAssessmentTitle;
     private TextView tvAssessmentDesc;
@@ -26,14 +30,20 @@ public class AssessmentViewerActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(AssessmentViewerActivity.this, AssessmentEditorActivity.class);
+                Uri uri = Uri.parse(DataProvider.ASSESSMENT_URI + "/" + assessmentId);
+                intent.putExtra(DataProvider.ASSESSMENT_CONTENT_TYPE, uri);
+                startActivityForResult(intent, ASSESSMENT_EDITOR_ACTIVITY_CODE);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        loadAssessment();
+    }
+
+    private void loadAssessment() {
         Uri assessmentUri = getIntent().getParcelableExtra(DataProvider.ASSESSMENT_CONTENT_TYPE);
-        long assessmentId = Long.parseLong(assessmentUri.getLastPathSegment());
+        assessmentId = Long.parseLong(assessmentUri.getLastPathSegment());
         _Assessment assessment = DataManager.getAssessment(this, assessmentId);
 
         tvAssessmentTitle = (TextView) findViewById(R.id.tvAssessmentTitle);
@@ -44,6 +54,14 @@ public class AssessmentViewerActivity extends AppCompatActivity {
         tvAssessmentTitle.setText(assessment.code + ": " + assessment.name);
         tvAssessmentDesc.setText(assessment.description);
         tvAssessmentDateTime.setText(assessment.dateTime);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            loadAssessment();
+        }
     }
 
 }

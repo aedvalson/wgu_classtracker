@@ -1,5 +1,6 @@
 package com.aedvalson.classtracker;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,8 +13,9 @@ import android.widget.EditText;
 public class AssessmentEditorActivity extends AppCompatActivity {
 
     private _Assessment assessment;
-    private Uri assessmentUri;
-    private Uri courseUri;
+    private long courseId;
+
+    private String action;
 
     private EditText etAssessmentCode;
     private EditText etAssessmentName;
@@ -34,14 +36,22 @@ public class AssessmentEditorActivity extends AppCompatActivity {
         etAssessmentDateTime = (EditText) findViewById(R.id.etAssessmentDateTime);
 
 
-        assessmentUri = getIntent().getParcelableExtra(DataProvider.ASSESSMENT_CONTENT_TYPE);
+        Uri assessmentUri = getIntent().getParcelableExtra(DataProvider.ASSESSMENT_CONTENT_TYPE);
         if (assessmentUri == null) {
             // new Assessment
-            courseUri = getIntent().getParcelableExtra(DataProvider.COURSE_CONTENT_TYPE);
+            setTitle(getString(R.string.new_assessment));
+            action = Intent.ACTION_INSERT;
+            Uri courseUri = getIntent().getParcelableExtra(DataProvider.COURSE_CONTENT_TYPE);
+            courseId = Long.parseLong(courseUri.getLastPathSegment());
+            assessment = new _Assessment();
         }
         else {
+            // existing assessment
+            setTitle(getString(R.string.edit_assessment));
+            action = Intent.ACTION_EDIT;
             Long assessmentId = Long.parseLong(assessmentUri.getLastPathSegment());
             assessment = DataManager.getAssessment(this, assessmentId);
+            courseId = assessment.courseId;
             populateFields();
         }
     }
@@ -55,4 +65,31 @@ public class AssessmentEditorActivity extends AppCompatActivity {
         }
     }
 
+    private void getValuesFromFields() {
+        assessment.code = etAssessmentCode.getText().toString().trim();
+        assessment.dateTime = etAssessmentDateTime.getText().toString().trim();
+        assessment.description = etAssessmentDesc.getText().toString().trim();
+        assessment.name = etAssessmentName.getText().toString().trim();
+    }
+
+    public void saveAssessmentChanges(View view) {
+        getValuesFromFields();
+        switch (action) {
+            case Intent.ACTION_INSERT:
+                DataManager.insertAssessment(this, courseId, assessment.code, assessment.name,
+                        assessment.description, assessment.dateTime);
+                setResult(RESULT_OK);
+                finish();
+                break;
+
+            case Intent.ACTION_EDIT:
+                assessment.saveChanges(this);
+                setResult(RESULT_OK);
+                finish();
+                break;
+
+            default:
+                throw new UnsupportedOperationException();
+        }
+    }
 }
