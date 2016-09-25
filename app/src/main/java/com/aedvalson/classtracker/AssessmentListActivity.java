@@ -25,6 +25,7 @@ public class AssessmentListActivity extends AppCompatActivity
     private CursorAdapter ca;
 
     private long courseId;
+    private Uri courseUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +35,18 @@ public class AssessmentListActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        courseUri = getIntent().getParcelableExtra(DataProvider.COURSE_CONTENT_TYPE);
+        courseId = Long.parseLong(courseUri.getLastPathSegment());
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AssessmentListActivity.this, AssessmentEditorActivity.class);
+                intent.putExtra(DataProvider.COURSE_CONTENT_TYPE, courseUri);
                 startActivityForResult(intent, ASSESSMENT_EDITOR_ACTIVITY_CODE);
             }
         });
-
-        Uri courseUri = getIntent().getParcelableExtra(DataProvider.COURSE_CONTENT_TYPE);
-        courseId = Long.parseLong(courseUri.getLastPathSegment());
 
         bindAssessmentList();
         getLoaderManager().initLoader(0, null, this);
