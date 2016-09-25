@@ -21,6 +21,7 @@ public class AssessmentListActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int ASSESSMENT_VIEWER_ACTIVITY_CODE = 11111;
+    private static final int ASSESSMENT_EDITOR_ACTIVITY_CODE = 22222;
     private CursorAdapter ca;
 
     private long courseId;
@@ -37,8 +38,8 @@ public class AssessmentListActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(AssessmentListActivity.this, AssessmentEditorActivity.class);
+                startActivityForResult(intent, ASSESSMENT_EDITOR_ACTIVITY_CODE);
             }
         });
 
