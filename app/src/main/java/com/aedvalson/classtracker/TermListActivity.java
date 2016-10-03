@@ -159,16 +159,31 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
         DataManager.insertCourseNote(this, Long.parseLong(course1Uri.getLastPathSegment()),
                 getString(R.string.long_test_note));
 
-        DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "CLP1",
+        Uri ass1Uri = DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "CLP1",
                 "Mobile Application Development", "As a competent mobile application developer, your understanding of mobile application structure and design will help you to develop applications to meet customer requirements. The following project to develop a student scheduler/student progress tracking application, will help you to apply these skills in a familiar, real-world scenario. This task will allow you to demonstrate your ability to apply the skills learned in the course.\n" +
                         "\n" +
                         "You will develop a multiple-screen mobile application for WGU students to track their terms, courses associated with each term, and assessment(s) associated with each course. The application will allow students to enter, edit, and delete term, course, and assessment data. It should provide summary and detailed views of courses for each term and provide alerts for upcoming performance and objective assessments. This application will use a SQLite database.\n" +
                         "\n\n" +
                         "adding another line", "2016-10-01 02:30:00 PM");
 
-        DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "ABC3",
+        Uri ass2Uri = DataManager.insertAssessment(this, Long.parseLong(course1Uri.getLastPathSegment()), "ABC3",
                 "Second Assessment, although this one has a name that won't fit on the grid",
                 "Assessment Description", "2016-10-01 10:30:00 AM");
+
+        DataManager.insertAssessmentNote(this, Long.parseLong(ass1Uri.getLastPathSegment()),
+                "Assessment #1 Note #1");
+
+        DataManager.insertAssessmentNote(this, Long.parseLong(ass1Uri.getLastPathSegment()),
+                "Assessment #1 Note #2");
+
+        DataManager.insertAssessmentNote(this, Long.parseLong(ass2Uri.getLastPathSegment()),
+                "Assessment #2 Note #1");
+
+        DataManager.insertAssessmentNote(this, Long.parseLong(ass2Uri.getLastPathSegment()),
+                "Assessment #2 Note #2");
+
+        DataManager.insertAssessmentNote(this, Long.parseLong(ass2Uri.getLastPathSegment()),
+                "Assessment #2 Note #3");
 
 
         restartLoader();

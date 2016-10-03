@@ -36,9 +36,9 @@
     <string name="title_activity_assessment_list">Assessments</string>
     <string name="title_activity_assessment_viewer">View Assessment</string>
     <string name="title_activity_course_note_viewer">CourseNoteViewerActivity</string>
-    <string name="title_activity_assessment_note_list">AssessmentNoteListActivity</string>
-    <string name="title_activity_assessment_note_viewer">AssessmentNoteViewerActivity</string>
-    <string name="title_activity_assessment_editor">AssessmentEditorActivity</string>
+    <string name="title_activity_assessment_note_list">Assessment Notes</string>
+    <string name="title_activity_assessment_note_viewer">View Assessment Note</string>
+    <string name="title_activity_assessment_editor">Edit Assessment</string>
     <string name="term_list">Term List</string>
     <string name="title_activity_course_note_editor">Edit Course Note</string>
     <string name="note_title">Enter Note Title...</string>
@@ -71,6 +71,7 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="save_assessment">Save Assessment</string>
     <string name="edit_assessment">Edit Assessment</string>
     <string name="new_assessment">New Assessment</string>
+    <string name="title_activity_assessment_note_editor">Edit Assessment Note</string>
 
 
 </resources>

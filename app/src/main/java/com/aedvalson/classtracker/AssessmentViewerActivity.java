@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class AssessmentViewerActivity extends AppCompatActivity {
 
     private static final int ASSESSMENT_EDITOR_ACTIVITY_CODE = 11111;
+    private static final int ASSESSMENT_NOTE_LIST_ACTIVITY_CODE = 22222;
     private long assessmentId;
 
     private TextView tvAssessmentTitle;
@@ -64,4 +65,10 @@ public class AssessmentViewerActivity extends AppCompatActivity {
         }
     }
 
+    public void openAssessmentNotesList(View view) {
+        Intent intent = new Intent(AssessmentViewerActivity.this, AssessmentNoteListActivity.class);
+        Uri uri = Uri.parse(DataProvider.ASSESSMENT_URI + "/" + assessmentId);
+        intent.putExtra(DataProvider.ASSESSMENT_CONTENT_TYPE, uri);
+        startActivityForResult(intent, ASSESSMENT_NOTE_LIST_ACTIVITY_CODE);
+    }
 }

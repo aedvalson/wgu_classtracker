@@ -147,6 +147,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.aedvalson.classtracker.CourseNoteListActivity" />
         </activity>
+        <activity
+            android:name=".AssessmentNoteEditorActivity"
+            android:label="@string/title_activity_assessment_note_editor"
+            android:parentActivityName=".AssessmentNoteListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aedvalson.classtracker.AssessmentNoteListActivity" />
+        </activity>
     </application>
 
 </manifest>

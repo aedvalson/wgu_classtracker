@@ -121,9 +121,27 @@ public class DataManager {
         Log.d("DataManager", "Inserted Assessment: " + assessmentUri.getLastPathSegment());
 
         return assessmentUri;
-
-
     }
 
+    public static Uri insertAssessmentNote(Context context, long courseId, String text) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.ASSESSMENT_NOTE_TEXT, text);
+        values.put(DBOpenHelper.ASSESSMENT_NOTE_ASSESSMENT_ID, courseId);
+
+        Uri courseUri = context.getContentResolver().insert(DataProvider.ASSESSMENT_NOTE_URI, values);
+        Log.d("DataManager", "Inserted Assessment Note: " + courseUri.getLastPathSegment());
+
+        return courseUri;
+    }
+
+    public static _AssessmentNote getAssessmentNote(Context context, long courseNoteId) {
+        Cursor cursor = context.getContentResolver().query(DataProvider.ASSESSMENT_NOTE_URI, DBOpenHelper.ASSESSMENT_NOTE_COLUMNS, DBOpenHelper.ASSESSMENT_NOTE_TABLE_ID + "=" + courseNoteId, null, null);
+
+        cursor.moveToFirst();
+        _AssessmentNote c = new _AssessmentNote(courseNoteId);
+        c.text = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NOTE_TEXT));
+        c.assessmentId = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NOTE_ASSESSMENT_ID));
+        return c;
+    }
 
 }
