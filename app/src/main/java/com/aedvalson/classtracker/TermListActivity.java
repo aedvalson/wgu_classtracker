@@ -1,6 +1,9 @@
 package com.aedvalson.classtracker;
 
+import android.app.AlarmManager;
 import android.app.LoaderManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +22,8 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+
+import java.util.GregorianCalendar;
 
 public class TermListActivity extends AppCompatActivity
 implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -92,6 +97,8 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
                 return createSampleData();
             case R.id.action_delete_all_terms:
                 return deleteAllTerms();
+            case R.id.action_create_test_alarm:
+                return createTestAlarm();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -187,6 +194,25 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
         restartLoader();
+        return true;
+    }
+
+    private boolean createTestAlarm() {
+        // current time + 10 seconds
+        Long time = new GregorianCalendar().getTimeInMillis() + 5000;
+
+        // create an Intent for our alarmHandler class. AlarmHandler will handle the actual alarm
+        Intent intentAlarm = new Intent(this, AlarmHandler.class);
+        intentAlarm.putExtra("text", "This is a test notification triggered from the debug function in ClassTracker");
+        intentAlarm.putExtra("title", "TEST Notification from ClassTracker");
+
+        // create the object
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //set the alarm for particular time
+        alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_ONE_SHOT));
+        Toast.makeText(this, "Test alarm scheduled for 1 second from now", Toast.LENGTH_SHORT).show();
+
         return true;
     }
 

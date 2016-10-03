@@ -8,11 +8,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+        <!-- DB Provider -->
         <provider
             android:name=".DataProvider"
             android:authorities="com.aedvalson.classtracker.dataprovider"
             android:exported="false" />
 
+        <!-- Alarm Provider -->
+        <receiver android:name=".AlarmHandler"/>
+
+
+        <!-- Activities -->
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

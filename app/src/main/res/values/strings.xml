@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="create_sample_data">Create Sample Data</string>
+    <string name="create_sample_data">Create TEST Data</string>
     <string name="delete_all_terms">Delete All Terms</string>
     <string name="are_you_sure">This will delete all terms! Are you sure you wish to continue?</string>
     <string name="all_deleted">All terms deleted.</string>
@@ -79,6 +79,7 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="delete_note">Delete Note</string>
     <string name="note_deleted">Note was successfully deleted</string>
     <string name="confirm_delete_note">Are you sure you wish to permanently delete this note?</string>
+    <string name="create_test_alarm">Create TEST Alarm</string>
 
 
 </resources>
