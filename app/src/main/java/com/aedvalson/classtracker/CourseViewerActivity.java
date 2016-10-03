@@ -1,14 +1,19 @@
 package com.aedvalson.classtracker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CourseViewerActivity extends AppCompatActivity {
 
@@ -74,5 +79,54 @@ public class CourseViewerActivity extends AppCompatActivity {
         Uri uri = Uri.parse(DataProvider.COURSE_URI + "/" + courseId);
         intent.putExtra(DataProvider.COURSE_CONTENT_TYPE, uri);
         startActivityForResult(intent, ASSESSMENT_LIST_ACTIVITY_CODE);
+    }
+
+    /// Setup menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_course_viewer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_delete_course:
+                return deleteCourse();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private boolean deleteCourse() {
+        DialogInterface.OnClickListener dialogClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    // Confirm that user wishes to proceed
+                    public void onClick(DialogInterface dialog, int button) {
+                        if (button == DialogInterface.BUTTON_POSITIVE) {
+
+                            DataManager.deleteCourse(CourseViewerActivity.this, courseId);
+                            setResult(RESULT_OK);
+                            finish();
+
+                            // Notify that delete was completed
+                            Toast.makeText(CourseViewerActivity.this,
+                                    R.string.course_deleted,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.confirm_delete_course)
+                .setPositiveButton(getString(android.R.string.yes), dialogClickListener)
+                .setNegativeButton(getString(android.R.string.no), dialogClickListener)
+                .show();
+
+        return true;
     }
 }

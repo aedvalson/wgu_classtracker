@@ -26,6 +26,5 @@ public class _Term {
         Cursor cursor = context.getContentResolver().query(DataProvider.COURSE_URI, DBOpenHelper.COURSE_COLUMNS, DBOpenHelper.COURSE_TERM_ID+ "=" + this.termId, null, null );
         int numRows = cursor.getCount();
         return numRows;
-
     }
 }

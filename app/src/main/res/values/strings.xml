@@ -72,6 +72,13 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="edit_assessment">Edit Assessment</string>
     <string name="new_assessment">New Assessment</string>
     <string name="title_activity_assessment_note_editor">Edit Assessment Note</string>
+    <string name="delete_course">Delete Course</string>
+    <string name="course_deleted">Course was successfully deleted.</string>
+    <string name="confirm_delete_course">This will delete the course, as well as any saved notes and assessments. Are you sure you want to proceed?</string>
+    <string name="delete_assessment">Delete Assessment</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="note_deleted">Note was successfully deleted</string>
+    <string name="confirm_delete_note">Are you sure you wish to permanently delete this note?</string>
 
 
 </resources>

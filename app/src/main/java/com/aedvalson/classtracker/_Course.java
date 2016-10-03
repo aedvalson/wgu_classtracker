@@ -2,6 +2,7 @@ package com.aedvalson.classtracker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 /**
  * Created by a_edv on 9/17/2016.

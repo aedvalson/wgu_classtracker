@@ -75,6 +75,17 @@ public class DataManager {
         return c;
     }
 
+    public static boolean deleteCourse(Context context, long courseId) {
+        Cursor notesCursor = context.getContentResolver().query(DataProvider.COURSE_NOTE_URI, DBOpenHelper.COURSE_NOTE_COLUMNS, DBOpenHelper.COURSE_NOTE_COURSE_ID + "=" + courseId, null, null );
+        while (notesCursor.moveToNext()) {
+            DataManager.deleteCourseNote(context, notesCursor.getLong(notesCursor.getColumnIndex(DBOpenHelper.COURSE_NOTE_TABLE_ID)));
+        }
+
+        context.getContentResolver().delete(DataProvider.COURSE_URI, DBOpenHelper.COURSE_TABLE_ID + " = " + courseId, null);
+
+        return true;
+    }
+
     public static Uri insertCourseNote(Context context, long courseId, String text) {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.COURSE_NOTE_TEXT, text);
@@ -96,6 +107,11 @@ public class DataManager {
         return c;
     }
 
+    public static boolean deleteCourseNote(Context context, long courseNoteId) {
+        context.getContentResolver().delete(DataProvider.COURSE_NOTE_URI, DBOpenHelper.COURSE_NOTE_TABLE_ID + " = " + courseNoteId, null);
+        return true;
+    }
+
     public static _Assessment getAssessment(Context context, long assessmentId) {
         Cursor cursor = context.getContentResolver().query(DataProvider.ASSESSMENT_URI, DBOpenHelper.ASSESSMENT_COLUMNS, DBOpenHelper.ASSESSMENT_TABLE_ID + "=" + assessmentId, null, null);
 
@@ -107,6 +123,16 @@ public class DataManager {
         assessment.description = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DESCRIPTION));
         assessment.dateTime = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DATE_TIME));
         return assessment;
+    }
+
+    public static boolean deleteAssessment(Context context, long assessmentId) {
+        Cursor notesCursor = context.getContentResolver().query(DataProvider.ASSESSMENT_NOTE_URI, DBOpenHelper.ASSESSMENT_NOTE_COLUMNS, DBOpenHelper.ASSESSMENT_NOTE_ASSESSMENT_ID + "=" + assessmentId, null, null );
+        while (notesCursor.moveToNext()) {
+            deleteAssessmentNote(context, notesCursor.getLong(notesCursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NOTE_TABLE_ID)));
+        }
+
+        context.getContentResolver().delete(DataProvider.ASSESSMENT_URI, DBOpenHelper.ASSESSMENT_TABLE_ID + " = " + assessmentId, null);
+        return true;
     }
 
     public static Uri insertAssessment(Context context, long courseId, String code, String name, String description, String dateTime) {
@@ -132,6 +158,11 @@ public class DataManager {
         Log.d("DataManager", "Inserted Assessment Note: " + courseUri.getLastPathSegment());
 
         return courseUri;
+    }
+
+    public static boolean deleteAssessmentNote(Context context, long assessmentNoteId) {
+        context.getContentResolver().delete(DataProvider.ASSESSMENT_NOTE_URI, DBOpenHelper.ASSESSMENT_NOTE_TABLE_ID + " = " + assessmentNoteId, null);
+        return true;
     }
 
     public static _AssessmentNote getAssessmentNote(Context context, long courseNoteId) {
