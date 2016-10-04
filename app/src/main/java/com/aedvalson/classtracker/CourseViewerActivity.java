@@ -1,7 +1,9 @@
 package com.aedvalson.classtracker;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,11 +17,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.GregorianCalendar;
+
 public class CourseViewerActivity extends AppCompatActivity {
 
     private static final int COURSE_NOTE_LIST_ACTIVITY_CODE = 11111;
     private static final int ASSESSMENT_LIST_ACTIVITY_CODE = 22222;
 
+    private Menu menu;
 
     private Uri courseUri;
     private long courseId;
@@ -86,7 +91,25 @@ public class CourseViewerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_course_viewer, menu);
+        this.menu = menu;
+        showAppropriateMenuOptions();
         return true;
+    }
+
+    private void showAppropriateMenuOptions() {
+        SharedPreferences sp = getSharedPreferences(AlarmHandler.courseAlarmFile, Context.MODE_PRIVATE);
+        MenuItem item;
+
+        menu.findItem(R.id.action_enable_notifications).setVisible(true);
+        menu.findItem(R.id.action_disable_notifications).setVisible(true);
+
+        if (course.courseNotifications) {
+            item = menu.findItem(R.id.action_enable_notifications);
+        } else {
+            item = menu.findItem(R.id.action_disable_notifications);
+        }
+
+        item.setVisible(false);
     }
 
     @Override
@@ -96,9 +119,67 @@ public class CourseViewerActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_delete_course:
                 return deleteCourse();
+            case R.id.action_enable_notifications:
+                return enableNotifications();
+            case R.id.action_disable_notifications:
+                return disableNotifications();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean disableNotifications() {
+        course.courseNotifications = false;
+        course.saveChanges(this);
+        showAppropriateMenuOptions();
+        return true;
+    }
+
+    private long getDateTimestamp(String Date) {
+        String[] dateArray = Date.split("-");
+        int year = Integer.parseInt(dateArray[0]);
+        int month = Integer.parseInt(dateArray[1]);
+        int date = Integer.parseInt(dateArray[2]);
+        GregorianCalendar gc = new GregorianCalendar(year, month, date);
+
+        long timeStamp = gc.getTimeInMillis();
+        return timeStamp;
+    }
+
+    private boolean enableNotifications() {
+        long now = DateUtil.todayLong();
+        Long tsLong = System.currentTimeMillis();
+        String nowString = DateUtil.dateFormat.format(tsLong);
+        long courseStartLong = DateUtil.getDateTimestamp(course.courseStart);
+        long threeDaysBeforeStart = DateUtil.getDateTimestamp(course.courseStart) - (3 * 24 * 60 * 60 * 1000);
+        long oneDaysBeforeStart = DateUtil.getDateTimestamp(course.courseStart) - (24 * 60 * 60 * 1000);
+
+        if (now <= DateUtil.getDateTimestamp(course.courseStart)) {
+            AlarmHandler.scheduleCourseAlarm(getApplicationContext(), (int) courseId, DateUtil.getDateTimestamp(course.courseStart), "Course starts Today!", course.courseName + " begins on " + course.courseStart);
+        }
+        if (now <= DateUtil.getDateTimestamp(course.courseStart) - 3 * 24 * 60 * 60 * 1000) {
+            AlarmHandler.scheduleCourseAlarm(getApplicationContext(), (int) courseId, DateUtil.getDateTimestamp(course.courseStart) - 3 * 24 * 60 * 60 * 1000, "Course starts in 3 days", course.courseName + " begins on " + course.courseStart);
+        }
+        if (now <= DateUtil.getDateTimestamp(course.courseStart) - 24 * 60 * 60 * 1000) {
+            AlarmHandler.scheduleCourseAlarm(getApplicationContext(), (int) courseId, DateUtil.getDateTimestamp(course.courseStart) - 24 * 60 * 60 * 1000, "Course starts tomorrow", course.courseName + " begins on " + course.courseStart);
+        }
+
+        if (now <= DateUtil.getDateTimestamp(course.courseEnd)) {
+            AlarmHandler.scheduleCourseAlarm(getApplicationContext(), (int) courseId, DateUtil.getDateTimestamp(course.courseEnd), "Course ends Today!", course.courseName + " ends on " + course.courseEnd);
+        }
+        if (now <= DateUtil.getDateTimestamp(course.courseEnd) - 3 * 24 * 60 * 60 * 1000) {
+            AlarmHandler.scheduleCourseAlarm(getApplicationContext(), (int) courseId, DateUtil.getDateTimestamp(course.courseEnd) - 3 * 24 * 60 * 60 * 1000, "Course ends in 3 days", course.courseName + " ends on " + course.courseEnd);
+        }
+        if (now <= DateUtil.getDateTimestamp(course.courseEnd) - 24 * 60 * 60 * 1000) {
+            AlarmHandler.scheduleCourseAlarm(getApplicationContext(), (int) courseId, DateUtil.getDateTimestamp(course.courseEnd) - 24 * 60 * 60 * 1000, "Course ends tomorrow", course.courseName + " ends on " + course.courseEnd);
+        }
+
+        course.courseNotifications = true;
+        course.saveChanges(this);
+
+        showAppropriateMenuOptions();
+
+        return true;
     }
 
     private boolean deleteCourse() {

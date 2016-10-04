@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -32,7 +33,7 @@ public class AlarmHandler extends BroadcastReceiver {
             destination = "";
         }
 
-        Long id = intent.getLongExtra("id", 0);
+        Integer id = intent.getIntExtra("id", 0);
         String alarmText = intent.getStringExtra("text");
         String alarmTitle = intent.getStringExtra("title");
         int nextAlarmId = intent.getIntExtra("nextAlarmId", getAndIncrementNextAlarmId(context));
@@ -50,9 +51,14 @@ public class AlarmHandler extends BroadcastReceiver {
 
         switch(destination) {
             case "course":
-                resultIntent = new Intent(context, CourseViewerActivity.class);
-                uri = Uri.parse(DataProvider.COURSE_URI + "/" + id);
-                resultIntent.putExtra(DataProvider.COURSE_CONTENT_TYPE, uri);
+                _Course course = DataManager.getCourse(context, id);
+                if (course != null && course.courseNotifications) {
+                    resultIntent = new Intent(context, CourseViewerActivity.class);
+                    uri = Uri.parse(DataProvider.COURSE_URI + "/" + id);
+                    resultIntent.putExtra(DataProvider.COURSE_CONTENT_TYPE, uri);
+                } else {
+                    return;
+                }
                 break;
             case "assessment":
                 resultIntent = new Intent(context, AssessmentViewerActivity.class);
@@ -96,9 +102,10 @@ public class AlarmHandler extends BroadcastReceiver {
         intentAlarm.putExtra("title", Title);
         intentAlarm.putExtra("destination", "course");
         intentAlarm.putExtra("nextAlarmId", nextAlarmId);
+        intentAlarm.putExtra("id", id);
 
         //set the alarm for particular time
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, nextAlarmId, intentAlarm, PendingIntent.FLAG_ONE_SHOT));
 
 
         // Store mapping to alarm id in course Prefs
@@ -109,6 +116,37 @@ public class AlarmHandler extends BroadcastReceiver {
 
         incrementNextAlarmId(context);
         return true;
+    }
+
+    public static void deleteCourseAlarm(Context context, int id, String Title, String Text) {
+        // create the object
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        SharedPreferences sp = context.getSharedPreferences(courseAlarmFile, Context.MODE_PRIVATE);
+
+        // We have to make a copy of the intent we would have received so that android can compare before it deletes
+        Intent intentAlarm = new Intent(context, AlarmHandler.class);
+        intentAlarm.putExtra("text", Text);
+        intentAlarm.putExtra("title", Title);
+        intentAlarm.putExtra("destination", "course");
+
+
+        if (sp.contains(Integer.toString(id))) {
+            int mId = sp.getInt(Integer.toString(id), 0);
+            if (mId > 0) {
+                intentAlarm.putExtra("nextAlarmId", mId);
+
+                boolean isWorking = (PendingIntent.getBroadcast(context, 1001, intentAlarm, PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
+                Log.d("ALARM DEBUG", "alarm is " + (isWorking ? "" : "not") + " working...");
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mId, intentAlarm, PendingIntent.FLAG_CANCEL_CURRENT);
+                alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
+
+            SharedPreferences.Editor editor = sp.edit();
+            editor.remove(Integer.toString(id));
+            editor.commit();
+        }
     }
 
     public static boolean scheduleAssessmentAlarm(Context context, int id, long time, String Title, String Text) {
@@ -126,7 +164,6 @@ public class AlarmHandler extends BroadcastReceiver {
         intentAlarm.putExtra("nextAlarmId", nextAlarmId);
 
         //set the alarm for particular time
-
         alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
 
 

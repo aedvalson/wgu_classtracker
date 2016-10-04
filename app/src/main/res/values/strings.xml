@@ -80,6 +80,13 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="note_deleted">Note was successfully deleted</string>
     <string name="confirm_delete_note">Are you sure you wish to permanently delete this note?</string>
     <string name="create_test_alarm">Create TEST Alarm</string>
+    <string name="enable_notifcations">Enable Notifcations</string>
+    <string name="disable_notifications">Disable Notifications</string>
+    <string name="progress_tracker">Progress Tracker</string>
+    <string name="degree_progress">Degree Progress</string>
+    <string name="completed_courses">Completed Courses: </string>
+    <string name="completed_terms">Completed Terms:</string>
+    <string name="current_term_progress">Current Term Progress</string>
 
 
 </resources>

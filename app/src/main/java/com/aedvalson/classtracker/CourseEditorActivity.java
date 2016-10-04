@@ -1,14 +1,18 @@
 package com.aedvalson.classtracker;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
-public class CourseEditorActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class CourseEditorActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String action;
     private _Course _course;
@@ -22,6 +26,9 @@ public class CourseEditorActivity extends AppCompatActivity {
     private EditText etCourseMentor;
     private EditText etCourseMentorPhone;
     private EditText etCourseMentorEmail;
+
+    private DatePickerDialog courseStartDateDialog;
+    private DatePickerDialog courseEndDateDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,50 @@ public class CourseEditorActivity extends AppCompatActivity {
             _course = DataManager.getCourse(this, classId);
             fillCourseForm(_course);
         }
+
+        setupDatePickers();
+    }
+
+    private void setupDatePickers() {
+        etCourseStart.setOnClickListener(this);
+        etCourseEnd.setOnClickListener(this);
+
+        Calendar cal = Calendar.getInstance();
+        courseStartDateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                etCourseStart.setText(DateUtil.dateFormat.format(newDate.getTime()));
+            }
+
+        },cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        courseEndDateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                etCourseEnd.setText(DateUtil.dateFormat.format(newDate.getTime()));
+            }
+
+        },cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        etCourseStart.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    courseStartDateDialog.show();
+            }
+        });
+
+        etCourseEnd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    courseEndDateDialog.show();
+            }
+        });
     }
 
     private void findViews() {
@@ -96,5 +147,15 @@ public class CourseEditorActivity extends AppCompatActivity {
         }
 
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == etCourseStart) {
+            courseStartDateDialog.show();
+        }
+        if (v == etCourseEnd) {
+            courseEndDateDialog.show();
+        }
     }
 }

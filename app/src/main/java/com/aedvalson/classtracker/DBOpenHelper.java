@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     //Constants for db name and version
     private static final String DATABASE_NAME = "wgu_classes.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     //Constants for identifying table and columns
 
@@ -42,6 +42,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String COURSE_MENTOR_PHONE = "mentorPhone";
     public static final String COURSE_MENTOR_EMAIL = "mentorEmail";
     public static final String COURSE_STATUS = "status";
+    public static final String COURSE_NOTIFICATIONS = "notifications";
 
     // course Note Table
     public static final String TABLE_COURSE_NOTES = "course_notes";
@@ -59,6 +60,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String ASSESSMENT_DATE_TIME = "dateTime";
     public static final String ASSESSMENT_DESCRIPTION = "description";
     public static final String ASSESSMENT_CREATED = "_created";
+    public static final String ASSESSMENT_NOTIFICATIONS = "notifications";
 
     public static final String TABLE_ASSESSMENT_NOTES = "assessment_notes";
     public static final String ASSESSMENT_NOTE_TABLE_ID = "_id";
@@ -73,13 +75,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String[] COURSE_COLUMNS = {COURSE_TABLE_ID, COURSE_NAME, COURSE_START,
             COURSE_END, COURSE_CREATED, COURSE_DESCRIPTION, COURSE_MENTOR, COURSE_MENTOR_EMAIL,
-            COURSE_MENTOR_PHONE};
+            COURSE_MENTOR_PHONE, COURSE_NOTIFICATIONS};
 
     public static final String[] COURSE_NOTE_COLUMNS = {COURSE_NOTE_TABLE_ID, COURSE_NOTE_COURSE_ID,
             COURSE_NOTE_TEXT, COURSE_NOTE_ATTACHMENT_URI};
 
     public static final String[] ASSESSMENT_COLUMNS = {ASSESSMENT_TABLE_ID, ASSESSMENT_COURSE_ID,
-            ASSESSMENT_CODE, ASSESSMENT_NAME, ASSESSMENT_DESCRIPTION, ASSESSMENT_DATE_TIME};
+            ASSESSMENT_CODE, ASSESSMENT_NAME, ASSESSMENT_DESCRIPTION, ASSESSMENT_DATE_TIME,
+            ASSESSMENT_NOTIFICATIONS};
 
     public static final String[] ASSESSMENT_NOTE_COLUMNS = {ASSESSMENT_NOTE_TABLE_ID,
             ASSESSMENT_NOTE_ASSESSMENT_ID, ASSESSMENT_NOTE_TEXT, ASSESSMENT_NOTE_ATTACHMENT_URI};
@@ -103,6 +106,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     ASSESSMENT_DESCRIPTION + " TEXT, " +
                     ASSESSMENT_DATE_TIME + " TEXT, " +
                     ASSESSMENT_CREATED + " TEXT default CURRENT_TIMESTAMP, " +
+                    ASSESSMENT_NOTIFICATIONS + " INTEGER, " +
                     "FOREIGN KEY(" + ASSESSMENT_COURSE_ID + ") REFERENCES " + TABLE_COURSES + "(" + COURSE_TABLE_ID + ")" +
                     ")";
 
@@ -142,6 +146,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     COURSE_MENTOR_EMAIL + " TEXT, " +
                     COURSE_MENTOR_PHONE + " TEXT, " +
                     COURSE_STATUS + " TEXT, " +
+                    COURSE_NOTIFICATIONS + " INTEGER, " +
                     "FOREIGN KEY(" + COURSE_TERM_ID + ") REFERENCES " + TABLE_TERMS + "(" + TERM_TABLE_ID + ")" +
                     ")";
 
