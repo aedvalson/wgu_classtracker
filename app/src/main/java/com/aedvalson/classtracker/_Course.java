@@ -27,6 +27,7 @@ public class _Course {
         values.put(DBOpenHelper.COURSE_MENTOR_EMAIL, courseMentorEmail);
         values.put(DBOpenHelper.COURSE_MENTOR_PHONE, courseMentorPhone);
         values.put(DBOpenHelper.COURSE_NOTIFICATIONS, (courseNotifications) ? 1 : 0);
+        values.put(DBOpenHelper.COURSE_STATUS, status.toString());
 
         context.getContentResolver().update(DataProvider.COURSE_URI, values, DBOpenHelper.COURSE_TABLE_ID + "=" + courseId, null);
     }

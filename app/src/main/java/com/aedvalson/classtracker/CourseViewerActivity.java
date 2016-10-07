@@ -109,6 +109,37 @@ public class CourseViewerActivity extends AppCompatActivity {
             item = menu.findItem(R.id.action_disable_notifications);
         }
 
+        if (course.status == null) {
+            course.status = CourseStatus.PLAN_TO_TAKE;
+            course.saveChanges(this);
+        }
+
+        switch (course.status.toString()) {
+            case ("PLAN_TO_TAKE"):
+                menu.findItem(R.id.action_drop_course).setVisible(false);
+                menu.findItem(R.id.action_start_course).setVisible(true);
+                menu.findItem(R.id.action_mark_course_completed).setVisible(false);
+                break;
+
+            case ("COMPLETED"):
+                menu.findItem(R.id.action_drop_course).setVisible(false);
+                menu.findItem(R.id.action_start_course).setVisible(false);
+                menu.findItem(R.id.action_mark_course_completed).setVisible(false);
+                break;
+
+            case ("IN_PROGRESS"):
+                menu.findItem(R.id.action_drop_course).setVisible(true);
+                menu.findItem(R.id.action_start_course).setVisible(false);
+                menu.findItem(R.id.action_mark_course_completed).setVisible(true);
+                break;
+
+            case ("DROPPED"):
+                menu.findItem(R.id.action_drop_course).setVisible(false);
+                menu.findItem(R.id.action_start_course).setVisible(false);
+                menu.findItem(R.id.action_mark_course_completed).setVisible(false);
+                break;
+        }
+
         item.setVisible(false);
     }
 
@@ -123,9 +154,36 @@ public class CourseViewerActivity extends AppCompatActivity {
                 return enableNotifications();
             case R.id.action_disable_notifications:
                 return disableNotifications();
+            case R.id.action_drop_course:
+                return dropCourse();
+            case R.id.action_start_course:
+                return startCourse();
+            case R.id.action_mark_course_completed:
+                return markCourseComplete();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean dropCourse() {
+        course.status = CourseStatus.DROPPED;
+        course.saveChanges(this);
+        showAppropriateMenuOptions();
+        return true;
+    }
+
+    private boolean startCourse() {
+        course.status = CourseStatus.IN_PROGRESS;
+        course.saveChanges(this);
+        showAppropriateMenuOptions();
+        return true;
+    }
+
+    private boolean markCourseComplete() {
+        course.status = CourseStatus.COMPLETED;
+        course.saveChanges(this);
+        showAppropriateMenuOptions();
+        return true;
     }
 
     private boolean disableNotifications() {

@@ -87,6 +87,9 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="completed_courses">Completed Courses: </string>
     <string name="completed_terms">Completed Terms:</string>
     <string name="current_term_progress">Current Term Progress</string>
+    <string name="drop_course">Drop Course</string>
+    <string name="mark_course_completed">Mark Course Completed</string>
+    <string name="start_course">Start Course</string>
 
 
 </resources>

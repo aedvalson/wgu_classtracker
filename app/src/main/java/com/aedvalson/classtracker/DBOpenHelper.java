@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     //Constants for db name and version
     private static final String DATABASE_NAME = "wgu_classes.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     //Constants for identifying table and columns
 
@@ -75,7 +75,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String[] COURSE_COLUMNS = {COURSE_TABLE_ID, COURSE_NAME, COURSE_START,
             COURSE_END, COURSE_CREATED, COURSE_DESCRIPTION, COURSE_MENTOR, COURSE_MENTOR_EMAIL,
-            COURSE_MENTOR_PHONE, COURSE_NOTIFICATIONS};
+            COURSE_MENTOR_PHONE, COURSE_NOTIFICATIONS, COURSE_STATUS};
 
     public static final String[] COURSE_NOTE_COLUMNS = {COURSE_NOTE_TABLE_ID, COURSE_NOTE_COURSE_ID,
             COURSE_NOTE_TEXT, COURSE_NOTE_ATTACHMENT_URI};
