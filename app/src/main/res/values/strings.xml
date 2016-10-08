@@ -99,6 +99,7 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="share">Share...</string>
     <string name="mark_term_active">Mark Term as Active</string>
     <string name="term_marked_active">Term marked as active.</string>
+    <string name="edit_course">Edit Course</string>
 
 
 </resources>

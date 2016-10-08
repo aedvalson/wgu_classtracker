@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aedvalson.classtracker.CourseViewerActivity"
+    tools:context="com.example.classtracker.CourseViewerActivity"
     tools:showIn="@layout/activity_course_viewer">
 
     <TextView
@@ -49,13 +49,19 @@
         android:layout_toRightOf="@+id/textView11"
         android:text="2000-02-01" />
 
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCourseStart"
+        android:text="2000-02-01" />
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvCourseStart">
+        android:layout_below="@+id/tvStatus">
 
 
         <ImageButton

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aedvalson.classtracker">
+    package="com.example.classtracker">
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -8,22 +12,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
         <!-- DB Provider -->
         <provider
-            android:name=".DataProvider"
-            android:authorities="com.aedvalson.classtracker.dataprovider"
+            android:name="com.example.classtracker.DataProvider"
+            android:authorities="com.example.classtracker.dataprovider"
             android:exported="false" />
 
         <!-- Alarm Provider -->
-        <receiver android:name=".AlarmHandler" />
+        <receiver android:name="com.example.classtracker.AlarmHandler" />
 
         <!-- Activities -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.classtracker.MainActivity"
             android:label="@string/title_activity_main"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
@@ -34,146 +36,146 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TermListActivity"
+            android:name="com.example.classtracker.TermListActivity"
             android:label="@string/term_list"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.example.classtracker.MainActivity" />
         </activity>
         <activity
-            android:name=".TermViewerActivity"
+            android:name="com.example.classtracker.TermViewerActivity"
             android:label="@string/title_activity_term_viewer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TermListActivity" />
+                android:value="com.example.classtracker.TermListActivity" />
         </activity>
         <activity
-            android:name=".TermEditorActivity"
+            android:name="com.example.classtracker.TermEditorActivity"
             android:label="@string/title_activity_term_editor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TermViewerActivity" />
+                android:value="com.example.classtracker.TermViewerActivity" />
         </activity>
         <activity
-            android:name=".CourseListActivity"
+            android:name="com.example.classtracker.CourseListActivity"
             android:label="Course List"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TermViewerActivity" />
+                android:value="com.example.classtracker.TermViewerActivity" />
         </activity>
         <activity
-            android:name=".CourseViewerActivity"
+            android:name="com.example.classtracker.CourseViewerActivity"
             android:label="@string/title_activity_course_viewer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CourseListActivity" />
+                android:value="com.example.classtracker.CourseListActivity" />
         </activity>
         <activity
-            android:name=".CourseEditorActivity"
+            android:name="com.example.classtracker.CourseEditorActivity"
             android:label="@string/title_activity_course_editor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CourseViewerActivity" />
+                android:value="com.example.classtracker.CourseViewerActivity" />
         </activity>
         <activity
-            android:name=".CourseNoteListActivity"
+            android:name="com.example.classtracker.CourseNoteListActivity"
             android:label="@string/title_activity_course_note_list"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.CourseViewerActivity" />
+                android:value="com.example.classtracker.CourseViewerActivity" />
         </activity>
         <activity
-            android:name=".AssessmentListActivity"
+            android:name="com.example.classtracker.AssessmentListActivity"
             android:label="@string/title_activity_assessment_list"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.CourseViewerActivity" />
+                android:value="com.example.classtracker.CourseViewerActivity" />
         </activity>
         <activity
-            android:name=".AssessmentViewerActivity"
+            android:name="com.example.classtracker.AssessmentViewerActivity"
             android:label="@string/title_activity_assessment_viewer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.AssessmentListActivity" />
+                android:value="com.example.classtracker.AssessmentListActivity" />
         </activity>
         <activity
-            android:name=".CourseNoteViewerActivity"
+            android:name="com.example.classtracker.CourseNoteViewerActivity"
             android:label="@string/title_activity_course_note_viewer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.CourseNoteListActivity" />
+                android:value="com.example.classtracker.CourseNoteListActivity" />
         </activity>
         <activity
-            android:name=".AssessmentNoteListActivity"
+            android:name="com.example.classtracker.AssessmentNoteListActivity"
             android:label="@string/title_activity_assessment_note_list"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AssessmentViewerActivity" />
+                android:value="com.example.classtracker.AssessmentViewerActivity" />
         </activity>
         <activity
-            android:name=".AssessmentNoteViewerActivity"
+            android:name="com.example.classtracker.AssessmentNoteViewerActivity"
             android:label="@string/title_activity_assessment_note_viewer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.AssessmentNoteListActivity" />
+                android:value="com.example.classtracker.AssessmentNoteListActivity" />
         </activity>
         <activity
-            android:name=".AssessmentEditorActivity"
+            android:name="com.example.classtracker.AssessmentEditorActivity"
             android:label="@string/title_activity_assessment_editor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.AssessmentViewerActivity" />
+                android:value="com.example.classtracker.AssessmentViewerActivity" />
         </activity>
         <activity
-            android:name=".CourseNoteEditorActivity"
+            android:name="com.example.classtracker.CourseNoteEditorActivity"
             android:label="@string/title_activity_course_note_editor"
-            android:parentActivityName=".CourseNoteListActivity"
+            android:parentActivityName="com.example.classtracker.CourseNoteListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.CourseNoteListActivity" />
+                android:value="com.example.classtracker.CourseNoteListActivity" />
         </activity>
         <activity
-            android:name=".AssessmentNoteEditorActivity"
+            android:name="com.example.classtracker.AssessmentNoteEditorActivity"
             android:label="@string/title_activity_assessment_note_editor"
-            android:parentActivityName=".AssessmentNoteListActivity"
+            android:parentActivityName="com.example.classtracker.AssessmentNoteListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.aedvalson.classtracker.AssessmentNoteListActivity" />
+                android:value="com.example.classtracker.AssessmentNoteListActivity" />
         </activity>
         <activity
-            android:name=".CameraActivity"
+            android:name="com.example.classtracker.CameraActivity"
             android:label="@string/title_activity_camera"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ImageListActivity"
+            android:name="com.example.classtracker.ImageListActivity"
             android:label="@string/title_activity_image_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

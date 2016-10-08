@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:weightSum="1"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aedvalson.classtracker.TermEditorActivity"
+    tools:context="com.example.classtracker.TermEditorActivity"
     tools:showIn="@layout/activity_term_editor">
 
 
