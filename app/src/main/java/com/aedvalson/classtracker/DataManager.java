@@ -177,4 +177,26 @@ public class DataManager {
         return c;
     }
 
+
+    public static _Image getImage(Context context, long imageId) {
+        Cursor cursor = context.getContentResolver().query(DataProvider.IMAGE_URI, DBOpenHelper.IMAGE_COLUMNS, DBOpenHelper.IMAGE_TABLE_ID + "=" + imageId, null, null);
+
+        cursor.moveToFirst();
+        _Image c = new _Image(imageId);
+        c.timeStamp = cursor.getLong(cursor.getColumnIndex(DBOpenHelper.IMAGE_TIMESTAMP));
+        c.parentUri = Uri.parse(cursor.getString(cursor.getColumnIndex(DBOpenHelper.IMAGE_PARENT_URI)));
+        return c;
+    }
+
+    public static Uri insertImage(Context context, long timestamp, Uri parentUri) {
+        ContentValues values = new ContentValues();
+        values.put(DBOpenHelper.IMAGE_TIMESTAMP, timestamp);
+        values.put(DBOpenHelper.IMAGE_PARENT_URI, parentUri.toString());
+
+        Uri courseUri = context.getContentResolver().insert(DataProvider.IMAGE_URI, values);
+        Log.d("DataManager", "Inserted Image: " + courseUri.getLastPathSegment());
+
+        return courseUri;
+    }
+
 }

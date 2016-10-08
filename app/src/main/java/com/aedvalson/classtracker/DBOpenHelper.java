@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     //Constants for db name and version
     private static final String DATABASE_NAME = "wgu_classes.db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     //Constants for identifying table and columns
 
@@ -68,7 +68,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String ASSESSMENT_NOTE_TEXT = "text";
     public static final String ASSESSMENT_NOTE_ATTACHMENT_URI = "uri";
     public static final String ASSESSMENT_NOTE_CREATED = "_created";
-    // course_assessment_note
+
+    public static final String TABLE_IMAGES = "images";
+    public static final String IMAGE_TABLE_ID = "_id";
+    public static final String IMAGE_PARENT_URI = "uri";
+    public static final String IMAGE_TIMESTAMP = "timestamp";
+    public static final String IMAGE_CREATED = "_created";
+
+    public static final String[] IMAGE_COLUMNS = {IMAGE_TABLE_ID, IMAGE_PARENT_URI, IMAGE_TIMESTAMP};
 
     public static final String[] TERM_COLUMNS = {TERM_TABLE_ID, TERM_NAME, TERM_START,
             TERM_END, TERM_CREATED};
@@ -86,6 +93,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String[] ASSESSMENT_NOTE_COLUMNS = {ASSESSMENT_NOTE_TABLE_ID,
             ASSESSMENT_NOTE_ASSESSMENT_ID, ASSESSMENT_NOTE_TEXT, ASSESSMENT_NOTE_ATTACHMENT_URI};
+
+
+    public static final String IMAGE_TABLE_CREATE =
+            "CREATE TABLE " + TABLE_IMAGES + " (" +
+                    IMAGE_TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    IMAGE_TIMESTAMP + " INTEGER, " +
+                    IMAGE_PARENT_URI + " TEXT, " +
+                    IMAGE_CREATED + " TEXT default CURRENT_TIMESTAMP " +
+                    ")";
+
 
     public static final String COURSE_NOTE_TABLE_CREATE =
             "CREATE TABLE " + TABLE_COURSE_NOTES + " (" +
@@ -164,6 +181,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(COURSE_NOTE_TABLE_CREATE);
         db.execSQL(ASSESSMENT_TABLE_CREATE);
         db.execSQL(ASSESSMENT_NOTE_TABLE_CREATE);
+        db.execSQL(IMAGE_TABLE_CREATE);
     }
 
     @Override
@@ -171,7 +189,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSESSMENT_NOTES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSESSMENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE_NOTES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSE_NOTES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TERMS);
         onCreate(db);

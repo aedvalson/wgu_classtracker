@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+        <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
         <!-- DB Provider -->
         <provider
@@ -18,8 +19,7 @@
             android:exported="false" />
 
         <!-- Alarm Provider -->
-        <receiver android:name=".AlarmHandler"/>
-
+        <receiver android:name=".AlarmHandler" />
 
         <!-- Activities -->
         <activity
@@ -165,6 +165,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.aedvalson.classtracker.AssessmentNoteListActivity" />
         </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ImageListActivity"
+            android:label="@string/title_activity_image_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -90,6 +90,12 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="drop_course">Drop Course</string>
     <string name="mark_course_completed">Mark Course Completed</string>
     <string name="start_course">Start Course</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="add_photo_from_camera">Add Photo from Camera</string>
+    <string name="add_image">Add Image</string>
+    <string name="title_activity_image_list">ImageListActivity</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="view_images">View Images</string>
 
 
 </resources>

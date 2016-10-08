@@ -25,12 +25,14 @@ public class DataProvider extends ContentProvider {
     public static final String COURSE_NOTE_PATH = "courseNotes";
     public static final String ASSESSMENT_PATH = "assessments";
     public static final String ASSESSMENT_NOTE_PATH = "assessmentNotes";
+    public static final String IMAGE_PATH = "images";
 
     public static final Uri TERM_URI = Uri.parse("content://" + AUTHORITY + "/" + TERM_PATH);
     public static final Uri COURSE_URI = Uri.parse("content://" + AUTHORITY + "/" + COURSE_PATH);
     public static final Uri COURSE_NOTE_URI = Uri.parse("content://" + AUTHORITY + "/" + COURSE_NOTE_PATH);
     public static final Uri ASSESSMENT_URI = Uri.parse("content://" + AUTHORITY + "/" + ASSESSMENT_PATH);
     public static final Uri ASSESSMENT_NOTE_URI = Uri.parse("content://" + AUTHORITY + "/" + ASSESSMENT_NOTE_PATH);
+    public static final Uri IMAGE_URI = Uri.parse("content://" + AUTHORITY + "/" + IMAGE_PATH);
 
     // Constant to identify the requested operation
     private static final int TERMS = 1;
@@ -43,6 +45,8 @@ public class DataProvider extends ContentProvider {
     public static final int ASSESSMENTS_ID = 8;
     public static final int ASSESSMENT_NOTES = 9;
     public static final int ASSESSMENT_NOTES_ID = 10;
+    public static final int IMAGES = 11;
+    public static final int IMAGES_ID = 12;
 
     public static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
@@ -56,6 +60,8 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, ASSESSMENT_PATH + "/#", ASSESSMENTS_ID);
         uriMatcher.addURI(AUTHORITY, ASSESSMENT_NOTE_PATH, ASSESSMENT_NOTES);
         uriMatcher.addURI(AUTHORITY, ASSESSMENT_NOTE_PATH + "/#", ASSESSMENT_NOTES_ID);
+        uriMatcher.addURI(AUTHORITY, IMAGE_PATH, IMAGES);
+        uriMatcher.addURI(AUTHORITY, IMAGE_PATH + "/#", IMAGES_ID);
     }
 
     public static final String TERM_CONTENT_TYPE = "term";
@@ -63,6 +69,7 @@ public class DataProvider extends ContentProvider {
     public static final String COURSE_NOTE_CONTENT_TYPE = "courseNote";
     public static final String ASSESSMENT_CONTENT_TYPE = "assessment";
     public static final String ASSESSMENT_NOTE_CONTENT_TYPE = "assessmentNote";
+    public static final String IMAGE_CONTENT_TYPE = "image";
 
     private SQLiteDatabase db;
     private String currentTable;
@@ -89,6 +96,8 @@ public class DataProvider extends ContentProvider {
                 return db.query(DBOpenHelper.TABLE_ASSESSMENTS, DBOpenHelper.ASSESSMENT_COLUMNS, selection, null, null, null, DBOpenHelper.ASSESSMENT_TABLE_ID + " ASC");
             case ASSESSMENT_NOTES:
                 return db.query(DBOpenHelper.TABLE_ASSESSMENT_NOTES, DBOpenHelper.ASSESSMENT_NOTE_COLUMNS, selection, null, null, null, DBOpenHelper.ASSESSMENT_NOTE_TABLE_ID + " ASC");
+            case IMAGES:
+                return db.query(DBOpenHelper.TABLE_IMAGES, DBOpenHelper.IMAGE_COLUMNS, selection, null, null, null, DBOpenHelper.IMAGE_TABLE_ID + " ASC");
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
@@ -130,6 +139,12 @@ public class DataProvider extends ContentProvider {
                 id = db.insert(DBOpenHelper.TABLE_ASSESSMENT_NOTES, null, values);
                 Log.d("DataProvider", "Inserted _AssessmentNote: " + id);
                 return Uri.parse(ASSESSMENT_NOTE_PATH + "/" + id);
+
+            case IMAGES:
+                id = db.insert(DBOpenHelper.TABLE_IMAGES, null, values);
+                Log.d("DataProvider", "Inserted _Image: " + id);
+                return Uri.parse(IMAGE_PATH + "/" + id);
+
             default:
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);

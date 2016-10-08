@@ -26,5 +26,12 @@ public class DateUtil {
         return getDateTimestamp(currentDate);
     }
 
+    public static long todayLongWithTime() {
+        return System.currentTimeMillis();
+    }
+
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd z", Locale.getDefault());
+    public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:MM:SS z", Locale.getDefault());
+
+
 }

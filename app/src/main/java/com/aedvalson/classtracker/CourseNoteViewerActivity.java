@@ -1,11 +1,12 @@
 package com.aedvalson.classtracker;
 
+import android.app.LoaderManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,11 +19,14 @@ import android.widget.Toast;
 
 public class CourseNoteViewerActivity extends AppCompatActivity {
 
+
     private static final int COURSE_NOTE_EDITOR_ACTIVITY_CODE = 11111;
-    
+    private static final int CAMERA_ACTIVITY_CODE = 22222;
+
     private Uri noteUri;
     private TextView tvNoteText;
     private long courseNoteId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +35,6 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CourseNoteViewerActivity.this, CourseNoteEditorActivity.class);
-                intent.putExtra(DataProvider.COURSE_NOTE_CONTENT_TYPE, noteUri);
-                startActivityForResult(intent, COURSE_NOTE_EDITOR_ACTIVITY_CODE);
-            }
-        });
 
         tvNoteText = (TextView) findViewById(R.id.tvNoteText);
 
@@ -51,7 +45,10 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
             setTitle("View Course Note");
             loadNote();
         }
+
+
     }
+
 
     private void loadNote() {
         _CourseNote cn = DataManager.getCourseNote(this, courseNoteId);
@@ -62,7 +59,7 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             loadNote();
         }
     }
@@ -83,9 +80,18 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_delete_course_note:
                 return deleteCourseNote();
+            case R.id.action_add_photo:
+                return addPhoto();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean addPhoto() {
+        Intent intent = new Intent(this, CameraActivity.class);
+        intent.putExtra("PARENT_URI", noteUri);
+        startActivityForResult(intent, CAMERA_ACTIVITY_CODE);
+        return true;
     }
 
     private boolean deleteCourseNote() {
@@ -117,4 +123,21 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
         return true;
     }
 
+
+    public void handleEditNote(View view) {
+        Intent intent = new Intent(this, CourseNoteEditorActivity.class);
+        intent.putExtra(DataProvider.COURSE_NOTE_CONTENT_TYPE, noteUri);
+        startActivityForResult(intent, COURSE_NOTE_EDITOR_ACTIVITY_CODE);
+    }
+
+    public void handleViewImages(View view) {
+        Intent intent = new Intent(this, ImageListActivity.class);
+        intent.putExtra("ParentUri", noteUri);
+        startActivityForResult(intent, 0);
+
+    }
+
+    public void handleAddPhoto(View view) {
+        addPhoto();
+    }
 }
