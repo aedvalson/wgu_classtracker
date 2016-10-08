@@ -7,8 +7,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
@@ -26,6 +28,8 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
     private Uri noteUri;
     private TextView tvNoteText;
     private long courseNoteId;
+
+    private ShareActionProvider mShareActionProvider;
 
 
     @Override
@@ -65,13 +69,6 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
     }
 
 
-    /// Setup menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_course_note, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,6 +117,33 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
                 .setNegativeButton(getString(android.R.string.no), dialogClickListener)
                 .show();
 
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu resource file.
+        getMenuInflater().inflate(R.menu.menu_course_note, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        _CourseNote courseNote = DataManager.getCourseNote(this, courseNoteId);
+        _Course course = DataManager.getCourse(this, courseNote.courseId);
+
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareSubject = course.courseName + ": Course Note";
+        String shareBody = courseNote.text;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+
+        //then set the sharingIntent
+        mShareActionProvider.setShareIntent(sharingIntent);
         return true;
     }
 

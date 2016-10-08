@@ -96,6 +96,7 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="title_activity_image_list">ImageListActivity</string>
     <string name="edit_note">Edit Note</string>
     <string name="view_images">View Images</string>
+    <string name="share">Share...</string>
 
 
 </resources>
