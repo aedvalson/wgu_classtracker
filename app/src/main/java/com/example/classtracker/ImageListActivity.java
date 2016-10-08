@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.Date;
 
 public class ImageListActivity extends AppCompatActivity
@@ -39,14 +40,6 @@ public class ImageListActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         parentUri = getIntent().getParcelableExtra("ParentUri");
 
@@ -69,10 +62,13 @@ public class ImageListActivity extends AppCompatActivity
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ImageListActivity.this, CourseNoteViewerActivity.class);
-                Uri uri = Uri.parse(DataProvider.COURSE_NOTE_URI + "/" + id);
-                intent.putExtra(DataProvider.COURSE_NOTE_CONTENT_TYPE, uri);
-                startActivityForResult(intent, 0);
+
+                _Image img = DataManager.getImage(ImageListActivity.this, id);
+                Intent intent = new Intent();
+                intent.setAction(android.content.Intent.ACTION_VIEW);
+                File file = new File(getExternalFilesDir(null) + "/class_tracker_images/" + img.timeStamp + ".jpg");
+                intent.setDataAndType(Uri.fromFile(file), "image/*");
+                startActivity(intent);
             }
         });
     }
