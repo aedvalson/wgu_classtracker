@@ -89,13 +89,22 @@ public class CameraActivity extends AppCompatActivity {
         imageCaptured = true;
 
         long now = DateUtil.todayLongWithTime();
-        DataManager.insertImage(this, now, parentUri);
+
 
         File from = new File(imagePath);
         File to = new File(folder + now + ".jpg");
         from.renameTo(to);
 
         Bitmap src = BitmapFactory.decodeFile(folder + now + ".jpg");
+
+        if (src == null) {
+            setResult(RESULT_CANCELED);
+            finish();
+            return;
+        }
+
+        DataManager.insertImage(this, now, parentUri);
+
         Bitmap thumb = ThumbnailUtils.extractThumbnail(src, (src.getWidth()/5), (src.getHeight()/5) );
         FileOutputStream out = null;
         try {

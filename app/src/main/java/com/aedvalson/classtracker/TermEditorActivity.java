@@ -133,7 +133,8 @@ public class TermEditorActivity extends AppCompatActivity implements View.OnClic
             DataManager.insertTerm(this,
                     term.termName,
                     term.termStartDate,
-                    term.termEndDate
+                    term.termEndDate,
+                    term.active
             );
 
             // Notify that insert was completed

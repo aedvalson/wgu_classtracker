@@ -13,6 +13,7 @@ public class _Term {
     public String termName;
     public String termStartDate;
     public String termEndDate;
+    public int active;
 
     public void saveChanges(Context context) {
         ContentValues values = new ContentValues();
@@ -26,5 +27,15 @@ public class _Term {
         Cursor cursor = context.getContentResolver().query(DataProvider.COURSE_URI, DBOpenHelper.COURSE_COLUMNS, DBOpenHelper.COURSE_TERM_ID+ "=" + this.termId, null, null );
         int numRows = cursor.getCount();
         return numRows;
+    }
+
+    public void deactivate(Context context) {
+        this.active = 0;
+        saveChanges(context);
+    }
+
+    public void activate(Context context) {
+        this.active = 1;
+        saveChanges(context);
     }
 }

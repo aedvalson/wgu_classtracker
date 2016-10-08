@@ -10,11 +10,12 @@ import android.util.Log;
  * Created by a_edv on 9/12/2016.
  */
 public class DataManager {
-    public static Uri insertTerm(Context context, String termName, String termStart, String termEnd) {
+    public static Uri insertTerm(Context context, String termName, String termStart, String termEnd, int termActive) {
         ContentValues values = new ContentValues();
         values.put(DBOpenHelper.TERM_NAME, termName);
         values.put(DBOpenHelper.TERM_START, termStart);
         values.put(DBOpenHelper.TERM_END, termEnd);
+        values.put(DBOpenHelper.TERM_ACTIVE, termActive);
 
         Uri termUri = context.getContentResolver().insert(DataProvider.TERM_URI, values);
         Log.d("DataManager", "Inserted _Term: " + termUri.getLastPathSegment());
@@ -49,12 +50,14 @@ public class DataManager {
         String termName = cursor.getString(cursor.getColumnIndex(DBOpenHelper.TERM_NAME));
         String termStartDate = cursor.getString(cursor.getColumnIndex(DBOpenHelper.TERM_START));
         String termEndDate = cursor.getString(cursor.getColumnIndex(DBOpenHelper.TERM_END));
+        int termActive = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.TERM_ACTIVE));
 
         _Term t = new _Term();
         t.termId = id;
         t.termName = termName;
         t.termStartDate = termStartDate;
         t.termEndDate = termEndDate;
+        t.active = termActive;
 
         return t;
     }

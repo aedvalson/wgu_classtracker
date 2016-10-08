@@ -158,7 +158,6 @@ public class CourseNoteViewerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ImageListActivity.class);
         intent.putExtra("ParentUri", noteUri);
         startActivityForResult(intent, 0);
-
     }
 
     public void handleAddPhoto(View view) {

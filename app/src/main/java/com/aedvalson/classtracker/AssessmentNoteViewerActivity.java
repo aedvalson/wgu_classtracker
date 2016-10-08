@@ -6,8 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
@@ -19,10 +21,13 @@ import android.widget.Toast;
 public class AssessmentNoteViewerActivity extends AppCompatActivity {
 
     private static final int ASSESSMENT_NOTE_EDITOR_ACTIVITY_CODE = 11111;
+    private static final int CAMERA_ACTIVITY_CODE = 22222;
 
     private Uri noteUri;
     private TextView tvNoteText;
     private long assessmentNoteId;
+
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +73,33 @@ public class AssessmentNoteViewerActivity extends AppCompatActivity {
     }
 
 
-    /// Setup menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_assessment_note, menu);
+        // Inflate menu resource file.
+        getMenuInflater().inflate(R.menu.menu_course_note, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        _AssessmentNote assessmentNote = DataManager.getAssessmentNote(this, assessmentNoteId);
+        _Assessment assessment= DataManager.getAssessment(this, assessmentNote.assessmentId);
+
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareSubject = assessment.code + " " + assessment.name + ": Assessment Note";
+        String shareBody = assessmentNote.text;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+
+        //then set the sharingIntent
+        mShareActionProvider.setShareIntent(sharingIntent);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -115,5 +140,28 @@ public class AssessmentNoteViewerActivity extends AppCompatActivity {
                 .show();
 
         return true;
+    }
+
+    private boolean addPhoto() {
+        Intent intent = new Intent(this, CameraActivity.class);
+        intent.putExtra("PARENT_URI", noteUri);
+        startActivityForResult(intent, CAMERA_ACTIVITY_CODE);
+        return true;
+    }
+
+    public void handleViewImages(View view) {
+        Intent intent = new Intent(this, ImageListActivity.class);
+        intent.putExtra("ParentUri", noteUri);
+        startActivityForResult(intent, 0);
+    }
+
+    public void handleEditNote(View view) {
+        Intent intent = new Intent(this, AssessmentNoteEditorActivity.class);
+        intent.putExtra(DataProvider.ASSESSMENT_NOTE_CONTENT_TYPE, noteUri);
+        startActivityForResult(intent, ASSESSMENT_NOTE_EDITOR_ACTIVITY_CODE);
+    }
+
+    public void handleAddPhoto(View view) {
+        addPhoto();
     }
 }

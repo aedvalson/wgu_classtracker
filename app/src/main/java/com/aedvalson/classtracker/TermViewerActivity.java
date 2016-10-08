@@ -2,6 +2,7 @@ package com.aedvalson.classtracker;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class TermViewerActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class TermViewerActivity extends AppCompatActivity {
     private TextView tv_title;
     private TextView tv_start;
     private TextView tv_end;
+    private Menu menu;
 
     private long termId;
 
@@ -42,11 +46,8 @@ public class TermViewerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         termUri = intent.getParcelableExtra(DataProvider.TERM_CONTENT_TYPE);
 
-
-
         findElements();
         loadTermData();
-
     }
 
 
@@ -77,6 +78,8 @@ public class TermViewerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_term_viewer, menu);
+        this.menu = menu;
+        showAppropriateMenuOptions();
         return true;
     }
 
@@ -85,6 +88,8 @@ public class TermViewerActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.action_mark_term_active:
+                return markTermActive();
             case R.id.action_edit_term:
                 Intent intent = new Intent(this, TermEditorActivity.class);
                 Uri uri = Uri.parse(DataProvider.TERM_URI + "/" + term.termId);
@@ -95,6 +100,26 @@ public class TermViewerActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean markTermActive() {
+        Cursor termCursor = getContentResolver().query(DataProvider.TERM_URI, null, null, null, null);
+        ArrayList<_Term> termList = new ArrayList<_Term>();
+        while  (termCursor.moveToNext()) {
+            termList.add(DataManager.getTerm(this, termCursor.getLong(termCursor.getColumnIndex(DBOpenHelper.TERM_TABLE_ID))));
+        }
+
+        for(_Term _term : termList) {
+            _term.deactivate(this);
+        }
+
+        this.term.activate(this);
+        showAppropriateMenuOptions();
+
+        Toast.makeText(TermViewerActivity.this,
+                R.string.term_marked_active,
+                Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     private boolean deleteTerm() {
@@ -135,7 +160,12 @@ public class TermViewerActivity extends AppCompatActivity {
     }
 
 
+    private void showAppropriateMenuOptions() {
+        if (term.active == 1) {
+            menu.findItem(R.id.action_mark_term_active).setVisible(false);
+        }
 
+    }
 
     public void openClassList(View view) {
         Intent intent = new Intent(this, CourseListActivity.class);

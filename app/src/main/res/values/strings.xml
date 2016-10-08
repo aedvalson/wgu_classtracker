@@ -93,10 +93,12 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="title_activity_camera">CameraActivity</string>
     <string name="add_photo_from_camera">Add Photo from Camera</string>
     <string name="add_image">Add Image</string>
-    <string name="title_activity_image_list">ImageListActivity</string>
+    <string name="title_activity_image_list">Note Images</string>
     <string name="edit_note">Edit Note</string>
     <string name="view_images">View Images</string>
     <string name="share">Share...</string>
+    <string name="mark_term_active">Mark Term as Active</string>
+    <string name="term_marked_active">Term marked as active.</string>
 
 
 </resources>

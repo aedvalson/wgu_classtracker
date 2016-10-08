@@ -138,12 +138,12 @@ implements LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private boolean createSampleData() {
-        Uri term1Uri = DataManager.insertTerm(this, "Spring 2016", "2016-01-01", "2016-06-30");
-        Uri term2Uri = DataManager.insertTerm(this, "Fall 2016", "2016-07-01", "2016-12-31");
-        Uri term3Uri = DataManager.insertTerm(this, "Spring 2017", "2017-01-01", "2017-06-30");
-        Uri term4Uri = DataManager.insertTerm(this, "Fall 2017", "2017-07-01", "2017-12-31");
-        Uri term5Uri = DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30");
-        Uri term6Uri = DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31");
+        Uri term1Uri = DataManager.insertTerm(this, "Spring 2016", "2016-01-01", "2016-06-30", 1);
+        Uri term2Uri = DataManager.insertTerm(this, "Fall 2016", "2016-07-01", "2016-12-31", 0);
+        Uri term3Uri = DataManager.insertTerm(this, "Spring 2017", "2017-01-01", "2017-06-30", 0);
+        Uri term4Uri = DataManager.insertTerm(this, "Fall 2017", "2017-07-01", "2017-12-31", 0);
+        Uri term5Uri = DataManager.insertTerm(this, "Spring 2018", "2018-01-01", "2018-06-30", 0);
+        Uri term6Uri = DataManager.insertTerm(this, "Fall 2018", "2018-07-01", "2018-12-31", 0);
 
         Uri course1Uri = DataManager.insertCourse(this, Long.parseLong(term1Uri.getLastPathSegment()),
                 "C196: Mobile Application Development", "2016-01-01", "2016-02-01",

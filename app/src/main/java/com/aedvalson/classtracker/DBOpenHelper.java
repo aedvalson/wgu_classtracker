@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     //Constants for db name and version
     private static final String DATABASE_NAME = "wgu_classes.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     //Constants for identifying table and columns
 
@@ -27,6 +27,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String TERM_NAME = "name";
     public static final String TERM_START = "start";
     public static final String TERM_END = "end";
+    public static final String TERM_ACTIVE = "active";
     public static final String TERM_CREATED = "_created";
 
     // Class Table
@@ -78,7 +79,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String[] IMAGE_COLUMNS = {IMAGE_TABLE_ID, IMAGE_PARENT_URI, IMAGE_TIMESTAMP};
 
     public static final String[] TERM_COLUMNS = {TERM_TABLE_ID, TERM_NAME, TERM_START,
-            TERM_END, TERM_CREATED};
+            TERM_END, TERM_ACTIVE, TERM_CREATED};
 
     public static final String[] COURSE_COLUMNS = {COURSE_TABLE_ID, COURSE_NAME, COURSE_START,
             COURSE_END, COURSE_CREATED, COURSE_DESCRIPTION, COURSE_MENTOR, COURSE_MENTOR_EMAIL,
@@ -146,7 +147,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                     TERM_NAME + " TEXT, " +
                     TERM_CREATED + " TEXT default CURRENT_TIMESTAMP, " +
                     TERM_START + " DATE, " +
-                    TERM_END + " DATE" +
+                    TERM_END + " DATE, " +
+                    TERM_ACTIVE + " INTEGER" +
                     ")";
 
     // SQL to create course table

@@ -14,133 +14,6 @@
     tools:showIn="@layout/activity_main">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvDegreeTrackerTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/degree_progress"
-            android:textSize="18sp"
-            />
-
-
-        <!-- degree terms -->
-        <TextView
-            android:id="@+id/tvProgressTrackerTermCompletionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDegreeTrackerTitle"
-            android:layout_marginLeft="16dp"
-            android:text="@string/completed_terms" />
-
-        <TextView
-            android:id="@+id/tvProgressTrackerCompletedTerms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDegreeTrackerTitle"
-            android:layout_toRightOf="@+id/tvProgressTrackerTermCompletionLabel"
-            android:layout_marginLeft="3dp"
-            android:text="1" />
-
-        <TextView
-            android:id="@+id/tvProgressTrackerTermsOfLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDegreeTrackerTitle"
-            android:layout_toRightOf="@+id/tvProgressTrackerCompletedTerms"
-            android:text=" of " />
-
-        <TextView
-            android:id="@+id/tvProgressTrackerTotalTerms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDegreeTrackerTitle"
-            android:layout_toRightOf="@+id/tvProgressTrackerTermsOfLabel"
-            android:text="3" />
-
-        <!-- completed courses -->
-        <TextView
-            android:id="@+id/tvProgressTrackerCourseCompletionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvProgressTrackerTermCompletionLabel"
-            android:layout_marginLeft="16dp"
-            android:text="@string/completed_courses" />
-
-        <TextView
-            android:id="@+id/tvProgressTrackerCompletedCourses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvProgressTrackerTermCompletionLabel"
-            android:layout_toRightOf="@+id/tvProgressTrackerCourseCompletionLabel"
-            android:layout_marginLeft="3dp"
-            android:text="1" />
-
-        <TextView
-            android:id="@+id/tvProgressTrackerCoursesOfLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvProgressTrackerTermCompletionLabel"
-            android:layout_toRightOf="@+id/tvProgressTrackerCompletedCourses"
-            android:text=" of " />
-
-        <TextView
-            android:id="@+id/tvProgressTrackerTotalCourses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvProgressTrackerTermCompletionLabel"
-            android:layout_toRightOf="@+id/tvProgressTrackerCoursesOfLabel"
-            android:text="3" />
-
-
-        <!-- term progress -->
-        <TextView
-            android:id="@+id/tvTermTrackerTitle"
-            android:layout_below="@+id/tvProgressTrackerCourseCompletionLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/current_term_progress"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            />
-
-        <TextView
-            android:id="@+id/tvTermTrackerCourseCompletionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTermTrackerTitle"
-            android:layout_marginLeft="16dp"
-            android:text="@string/completed_courses" />
-
-        <TextView
-            android:id="@+id/tvTermTrackerCompletedCourses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTermTrackerTitle"
-            android:layout_toRightOf="@+id/tvProgressTrackerCourseCompletionLabel"
-            android:layout_marginLeft="3dp"
-            android:text="1" />
-
-        <TextView
-            android:id="@+id/tvTermTrackerCoursesOfLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTermTrackerTitle"
-            android:layout_toRightOf="@+id/tvProgressTrackerCompletedCourses"
-            android:text=" of " />
-
-        <TextView
-            android:id="@+id/tvTermTrackerTotalCourses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTermTrackerTitle"
-            android:layout_toRightOf="@+id/tvProgressTrackerCoursesOfLabel"
-            android:text="3" />
-    </RelativeLayout>
-
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -187,7 +60,7 @@
             android:layout_column="0"
             android:layout_gravity="fill_horizontal"
             android:layout_row="0"
-            android:onClick="openTermList"
+            android:onClick="openCurrentTerm"
             android:padding="30dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_calendar_multiple_black_48dp" />
