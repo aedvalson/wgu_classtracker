@@ -45,7 +45,7 @@ public class AssessmentNoteListActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AssessmentNoteListActivity.this, AssessmentNoteEditorActivity.class);
-                intent.putExtra(DataProvider.ASSESSMENT_NOTE_CONTENT_TYPE, assessmentUri);
+                intent.putExtra(DataProvider.ASSESSMENT_CONTENT_TYPE, assessmentUri);
                 startActivityForResult(intent, ASSESSMENT_NOTE_EDITOR_ACTIVITY_CODE);
             }
         });

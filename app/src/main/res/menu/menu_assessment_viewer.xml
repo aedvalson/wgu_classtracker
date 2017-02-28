@@ -8,4 +8,14 @@
         android:orderInCategory="100"
         android:title="@string/delete_assessment"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_enable_notifications"
+        android:orderInCategory="101"
+        android:title="@string/enable_notifcations"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_disable_notifications"
+        android:orderInCategory="102"
+        android:title="@string/disable_notifications"
+        app:showAsAction="never" />
 </menu>

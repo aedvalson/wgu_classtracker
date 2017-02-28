@@ -36,16 +36,6 @@ public class AssessmentNoteViewerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AssessmentNoteViewerActivity.this, AssessmentNoteEditorActivity.class);
-                intent.putExtra(DataProvider.ASSESSMENT_NOTE_CONTENT_TYPE, noteUri);
-                startActivityForResult(intent, ASSESSMENT_NOTE_EDITOR_ACTIVITY_CODE);
-            }
-        });
-
         tvNoteText = (TextView) findViewById(R.id.tvNoteText);
 
         // Reusing this view for assessment notes, so let's check for multiple types of Intent Extras
@@ -75,7 +65,7 @@ public class AssessmentNoteViewerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate menu resource file.
-        getMenuInflater().inflate(R.menu.menu_course_note, menu);
+        getMenuInflater().inflate(R.menu.menu_assessment_note, menu);
 
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.menu_item_share);

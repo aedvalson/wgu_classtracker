@@ -1,7 +1,9 @@
 package com.example.classtracker;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,9 +22,12 @@ public class AssessmentViewerActivity extends AppCompatActivity {
     private static final int ASSESSMENT_NOTE_LIST_ACTIVITY_CODE = 22222;
     private long assessmentId;
 
+    private _Assessment assessment;
+
     private TextView tvAssessmentTitle;
     private TextView tvAssessmentDesc;
     private TextView tvAssessmentDateTime;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class AssessmentViewerActivity extends AppCompatActivity {
     private void loadAssessment() {
         Uri assessmentUri = getIntent().getParcelableExtra(DataProvider.ASSESSMENT_CONTENT_TYPE);
         assessmentId = Long.parseLong(assessmentUri.getLastPathSegment());
-        _Assessment assessment = DataManager.getAssessment(this, assessmentId);
+        assessment = DataManager.getAssessment(this, assessmentId);
 
         tvAssessmentTitle = (TextView) findViewById(R.id.tvAssessmentTitle);
         tvAssessmentDesc = (TextView) findViewById(R.id.tvAssessmentDesc);
@@ -64,7 +69,7 @@ public class AssessmentViewerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             loadAssessment();
         }
     }
@@ -82,6 +87,7 @@ public class AssessmentViewerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_assessment_viewer, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -92,6 +98,10 @@ public class AssessmentViewerActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_delete_assessment:
                 return deleteAssessment();
+            case R.id.action_enable_notifications:
+                return enableNotifications();
+            case R.id.action_disable_notifications:
+                return disableNotifications();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -111,17 +121,63 @@ public class AssessmentViewerActivity extends AppCompatActivity {
 
                             // Notify that delete was completed
                             Toast.makeText(AssessmentViewerActivity.this,
-                                    R.string.note_deleted,
+                                    R.string.assessment_deleted,
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
                 };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.confirm_delete_note)
+        builder.setMessage(R.string.confirm_delete_assessment)
                 .setPositiveButton(getString(android.R.string.yes), dialogClickListener)
                 .setNegativeButton(getString(android.R.string.no), dialogClickListener)
                 .show();
+
+        return true;
+    }
+
+    private void showAppropriateMenuOptions() {
+        SharedPreferences sp = getSharedPreferences(AlarmHandler.courseAlarmFile, Context.MODE_PRIVATE);
+        MenuItem item;
+
+        menu.findItem(R.id.action_enable_notifications).setVisible(true);
+        menu.findItem(R.id.action_disable_notifications).setVisible(true);
+
+        if (assessment.assessmentNotifications == 1) {
+            menu.findItem(R.id.action_enable_notifications).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_disable_notifications).setVisible(false);
+        }
+    }
+
+    private boolean disableNotifications() {
+        assessment.assessmentNotifications = 0;
+        assessment.saveChanges(this);
+        showAppropriateMenuOptions();
+        return true;
+    }
+
+
+    private boolean enableNotifications() {
+        long now = DateUtil.todayLong();
+        Long tsLong = System.currentTimeMillis();
+
+        AlarmHandler.scheduleAssessmentAlarm(getApplicationContext(), (int) assessmentId, System.currentTimeMillis() + 1000, "Assessment is today!", assessment.name + " takes place on " + assessment.dateTime);
+
+        if (now <= DateUtil.getDateTimestamp(assessment.dateTime)) {
+            AlarmHandler.scheduleAssessmentAlarm(getApplicationContext(), (int) assessmentId, DateUtil.getDateTimestamp(assessment.dateTime), "Assessment is today!", assessment.name + " takes place on " + assessment.dateTime);
+        }
+        if (now <= DateUtil.getDateTimestamp(assessment.dateTime) - 3 * 24 * 60 * 60 * 1000) {
+            AlarmHandler.scheduleAssessmentAlarm(getApplicationContext(), (int) assessmentId, DateUtil.getDateTimestamp(assessment.dateTime) - 3 * 24 * 60 * 60 * 1000, "Assessment in 3 days", assessment.name + " takes place on " + assessment.dateTime);
+        }
+        if (now <= DateUtil.getDateTimestamp(assessment.dateTime) - 24 * 60 * 60 * 1000) {
+            AlarmHandler.scheduleAssessmentAlarm(getApplicationContext(), (int) assessmentId, DateUtil.getDateTimestamp(assessment.dateTime) - 24 * 60 * 60 * 1000, "Assessment is tomorrow", assessment.name + " takes place on " + assessment.dateTime);
+        }
+
+        assessment.assessmentNotifications = 1;
+        assessment.saveChanges(this);
+
+        showAppropriateMenuOptions();
 
         return true;
     }

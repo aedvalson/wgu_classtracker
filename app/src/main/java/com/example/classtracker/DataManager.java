@@ -127,6 +127,7 @@ public class DataManager {
         assessment.name = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NAME));
         assessment.description = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DESCRIPTION));
         assessment.dateTime = cursor.getString(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_DATE_TIME));
+        assessment.assessmentNotifications = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.ASSESSMENT_NOTIFICATIONS));
         return assessment;
     }
 

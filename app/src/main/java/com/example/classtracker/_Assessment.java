@@ -13,6 +13,7 @@ public class _Assessment {
     public long courseId;
     public String description;
     public String dateTime;
+    public int assessmentNotifications;
 
     public _Assessment(long id) {
         assessmentId = id;
@@ -26,6 +27,7 @@ public class _Assessment {
         values.put(DBOpenHelper.ASSESSMENT_NAME, name);
         values.put(DBOpenHelper.ASSESSMENT_DATE_TIME, dateTime);
         values.put(DBOpenHelper.ASSESSMENT_DESCRIPTION, description);
+        values.put(DBOpenHelper.ASSESSMENT_NOTIFICATIONS, assessmentNotifications);
 
         context.getContentResolver().update(DataProvider.ASSESSMENT_URI, values, DBOpenHelper.ASSESSMENT_TABLE_ID + "=" + assessmentId, null);
     }

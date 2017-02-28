@@ -78,7 +78,9 @@ Learn how to create screen wireframes (low-fidelity graphic mockups) representin
     <string name="delete_assessment">Delete Assessment</string>
     <string name="delete_note">Delete Note</string>
     <string name="note_deleted">Note was successfully deleted</string>
+    <string name="assessment_deleted">Assessment was successfully deleted</string>
     <string name="confirm_delete_note">Are you sure you wish to permanently delete this note?</string>
+    <string name="confirm_delete_assessment">Are you sure you wish to permanently delete this assessment?</string>
     <string name="create_test_alarm">Create TEST Alarm</string>
     <string name="enable_notifcations">Enable Notifcations</string>
     <string name="disable_notifications">Disable Notifications</string>

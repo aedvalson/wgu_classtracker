@@ -60,9 +60,14 @@ public class AlarmHandler extends BroadcastReceiver {
                 }
                 break;
             case "assessment":
-                resultIntent = new Intent(context, AssessmentViewerActivity.class);
-                uri = Uri.parse(DataProvider.ASSESSMENT_URI + "/" + id);
-                resultIntent.putExtra(DataProvider.ASSESSMENT_CONTENT_TYPE, uri);
+                _Assessment assessment = DataManager.getAssessment(context, id);
+                if (assessment != null && assessment.assessmentNotifications == 1) {
+                    resultIntent = new Intent(context, AssessmentViewerActivity.class);
+                    uri = Uri.parse(DataProvider.ASSESSMENT_URI + "/" + id);
+                    resultIntent.putExtra(DataProvider.ASSESSMENT_CONTENT_TYPE, uri);
+                } else {
+                    return;
+                }
                 break;
             default:
                 resultIntent = new Intent(context, MainActivity.class);
@@ -126,16 +131,13 @@ public class AlarmHandler extends BroadcastReceiver {
         Intent intentAlarm = new Intent(context, AlarmHandler.class);
         intentAlarm.putExtra("text", Text);
         intentAlarm.putExtra("title", Title);
-        intentAlarm.putExtra("destination", "course");
+        intentAlarm.putExtra("destination", "assessment");
 
 
         if (sp.contains(Integer.toString(id))) {
             int mId = sp.getInt(Integer.toString(id), 0);
             if (mId > 0) {
                 intentAlarm.putExtra("nextAlarmId", mId);
-
-                boolean isWorking = (PendingIntent.getBroadcast(context, 1001, intentAlarm, PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
-                Log.d("ALARM DEBUG", "alarm is " + (isWorking ? "" : "not") + " working...");
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, mId, intentAlarm, PendingIntent.FLAG_CANCEL_CURRENT);
                 alarmManager.cancel(pendingIntent);
@@ -161,13 +163,14 @@ public class AlarmHandler extends BroadcastReceiver {
         intentAlarm.putExtra("title", Title);
         intentAlarm.putExtra("destination", "assessment");
         intentAlarm.putExtra("nextAlarmId", nextAlarmId);
+        intentAlarm.putExtra("id", id);
 
         //set the alarm for particular time
         alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(context, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
 
 
         // Store mapping to alarm id in course Prefs
-        SharedPreferences sp = context.getSharedPreferences(courseAlarmFile, Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(assessmentAlarmFile, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt(Long.toString(id), nextAlarmId);
         editor.commit();
